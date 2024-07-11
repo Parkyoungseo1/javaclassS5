@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.javaclassS5.dao.AlcoholDAO">
+	
+	<select id="getAlcoholList" resultType="com.spring.javaclassS5.vo.AlcoholVO">
+    select *, datediff(wDate, now()) as date_diff,
+    timestampdiff(hour, wDate, now()) as hour_diff
+    from alcohol <if test="part != 'ALL'"> where part = #{part} </if> 
+    order by idx desc limit #{startIndexNo}, #{pageSize};
+	</select>
+	
+	<select id="getAlcoholContent" resultType="com.spring.javaclassS5.vo.AlcoholVO">
+		select * from alcohol where idx = #{idx};
+	</select>
+	
+	<select id="totRecCnt" resultType="int">
+		select count(*) from alcohol <if test="part != 'ALL'"> where part = #{part} </if>;
+	</select>
+	
+	<!-- <![CDATA[]]>       <![CDATA[]]> -->
+	<select id="getPreNexSearch" resultType="com.spring.javaclassS5.vo.AlcoholVO">
+	  <if test="str == 'preVo'">
+	    select idx,title from alcohol where <![CDATA[idx < #{idx}]]> order by idx desc limit 1;
+	  </if>
+	  <if test="str != 'preVo'">
+	    select idx,title from alcohol where <![CDATA[idx > #{idx}]]> order by idx limit 1;
+	  </if>
+	</select>
+	
+	<select id="totRecCntSearch"  resultType="int">
+		select count(*) from alcohol where ${search} like concat("%",#{searchString},"%"); 
+	</select>
+	
+	<select id="getAlcoholSearchList" resultType="com.spring.javaclassS5.vo.AlcoholVO">
+		select * from alcohol where ${search} like concat("%",#{searchString},"%") order by idx desc limit #{startIndexNo},#{pageSize};
+	</select>
+
+	
+	
+	<insert id="setAlcoholInput">
+	  insert into alcohol values (default,#{vo.mid},#{vo.title},#{vo.content},#{vo.price},default,default,default,#{vo.part},#{vo.thumbnail});
+	</insert>
+	
+	<update id="setReadNumPlus">
+	  update alcohol set readNum = readNum + 1 where idx = #{idx};
+	</update>
+	
+	<update id="setAlcoholUpdate">
+	  update alcohol set title=#{vo.title}, content=#{vo.content}, price=#{vo.price}, part=#{vo.part}, wDate=now() where idx=#{vo.idx};
+	</update>
+	
+	<delete id="setAlcoholDelete">
+	  delete from alcohol where idx = #{idx};
+	</delete>
+	
+	
+</mapper>

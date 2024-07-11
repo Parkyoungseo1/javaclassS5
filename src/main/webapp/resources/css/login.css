@@ -1,0 +1,133 @@
+body {
+  background-image: url('https://example.com/bar-background.jpg');
+  background-size: cover;
+  background-attachment: fixed;
+  color: #e0e0e0;
+  font-family: 'Old Standard TT', serif;
+}
+
+.container {
+  max-width: 400px;
+  margin-top: 50px;
+}
+
+.login-container {
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(255, 165, 0, 0.5);
+  border: 1px solid #8b4513;
+}
+
+h2 {
+  color: #ffd700;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.input-group-text {
+  background-color: #4e3525;
+  border: 1px solid #8b4513;
+  color: #ffd700;
+}
+
+.form-control {
+  background-color: #2c1a0e;
+  border: 1px solid #8b4513;
+  color: #e0e0e0;
+}
+
+.form-control:focus {
+  box-shadow: 0 0 0 0.2rem rgba(255, 215, 0, 0.25);
+  background-color: #3c2a1e;
+  border-color: #ffd700;
+}
+
+.btn-primary {
+  background-color: #8b4513;
+  border-color: #8b4513;
+  color: #ffd700;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btn-primary:hover {
+  background-color: #a0522d;
+  border-color: #a0522d;
+}
+
+.custom-control-input:checked ~ .custom-control-label::before {
+  background-color: #8b4513;
+  border-color: #8b4513;
+}
+
+a {
+  color: #ffd700;
+}
+
+a:hover {
+  text-decoration: none;
+  color: #ffee58;
+}
+
+#searchPassword {
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(255, 165, 0, 0.5);
+  border: 1px solid #8b4513;
+}
+
+@media (max-width: 576px) {
+  .container {
+    margin-top: 20px;
+  }
+}
+
+.form-control::placeholder {
+  color: #a9a9a9;
+}
+
+.custom-control-label {
+  color: #e0e0e0;
+}
+
+/* 네온 사인 효과 */
+.login-container::before {
+  content: 'BAR';
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 36px;
+  color: #ff00ff;
+  text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 40px #ff00ff;
+  animation: neon 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes neon {
+  from {
+    text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 40px #ff00ff;
+  }
+  to {
+    text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff, 0 0 50px #ff00ff;
+  }
+}
+
+/* 유리 효과 */
+.login-container {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* 버튼 호버 효과 */
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(255, 215, 0, 0.3);
+  transition: all 0.3s ease;
+}
