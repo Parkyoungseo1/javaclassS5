@@ -18,6 +18,7 @@
 	<resources mapping="/images/**" location="/resources/images/" />
 	<resources mapping="/member/**" location="/resources/data/member/" />
 	<resources mapping="/alcohol/**" location="/resources/data/alcohol/" />
+	<resources mapping="/user/**" location="/resources/data/user/" />
 	<resources mapping="/ckeditor/**" location="/resources/ckeditor/" />
 	<resources mapping="/css/**" location="/resources/css/" />
 	<resources mapping="/thumbnail/**" location="/resources/data/thumbnail/" />

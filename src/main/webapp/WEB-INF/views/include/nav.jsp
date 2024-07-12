@@ -115,7 +115,7 @@
        User <i class="fa fa-caret-down"></i>
     </a>
     <div id="demoAcc1" class="w3-bar-block w3-hide w3-padding-large w3-medium">
-      <a href="#" class="w3-bar-item w3-button w3-light-grey"><i class="fa fa-caret-right w3-margin-right"></i>나만의 레시피</a>
+      <a href="${ctp}/user/userboardList" class="w3-bar-item w3-button w3-light-grey"><i class="fa fa-caret-right w3-margin-right"></i>나만의 레시피</a>
       <a href="#" class="w3-bar-item w3-button">양주</a>
       <a href="#" class="w3-bar-item w3-button">위스키</a>
       <a href="#" class="w3-bar-item w3-button">와인</a>

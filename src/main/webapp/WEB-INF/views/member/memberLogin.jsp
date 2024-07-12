@@ -84,7 +84,7 @@
           <div class="input-group-prepend">
             <span class="input-group-text"><i class="fas fa-user"></i></span>
           </div>
-          <input type="text" name="mid" value="${mid}" class="form-control" placeholder="아이디" required autofocus>
+          <input type="text" name="mid" value="admin" class="form-control" placeholder="아이디" required autofocus>
         </div>
       </div>
       <div class="form-group">
@@ -92,7 +92,7 @@
           <div class="input-group-prepend">
             <span class="input-group-text"><i class="fas fa-lock"></i></span>
           </div>
-          <input type="password" name="pwd" class="form-control" placeholder="비밀번호" required>
+          <input type="password" name="pwd" value="1234" class="form-control" placeholder="비밀번호" required>
         </div>
       </div>
       <div class="form-group">
