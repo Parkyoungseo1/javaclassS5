@@ -14,7 +14,7 @@
 <jsp:include page="/WEB-INF/views/include/nav.jsp" />
 <p><br/></p>
 <div class="container">
-  <h2 class="text-center">게 시 판 글 수 정 하 기</h2>
+  <h2 class="text-center"> 글 수 정 하 기</h2>
   <form name="myform" method="post">
     <table class="table table-bordered">
       <tr>

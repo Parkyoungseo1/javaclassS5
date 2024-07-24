@@ -4,11 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.javaclassS5.dao.AlcoholDAO;
+import com.spring.javaclassS5.dao.UserboardDAO;
 import com.spring.javaclassS5.vo.PageVO;
 
 @Service
 public class PageProcess {
 
+	@Autowired
+	UserboardDAO userboardDAO;
+	
 	@Autowired
 	AlcoholDAO alcoholDAO;
 
@@ -26,7 +30,18 @@ public class PageProcess {
 				search = part;
 				totRecCnt = alcoholDAO.totRecCntSearch(search, searchString);
 			}
-		}		
+		}
+		else if(section.equals("userboard")) {
+			if(searchString.equals("")) {
+				totRecCnt = userboardDAO.totRecCnt(part);
+			}
+			else {
+				search = part;
+				totRecCnt = userboardDAO.totRecCntSearch(search, searchString);
+			}
+		}
+			
+			
 		int totPage = (totRecCnt % pageSize) == 0 ? (totRecCnt / pageSize) : (totRecCnt / pageSize) + 1;
 		int startIndexNo = (pag - 1) * pageSize;
 		int curScrStartNo = totRecCnt - startIndexNo;

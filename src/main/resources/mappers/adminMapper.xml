@@ -1,6 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.javaclassS5.dao.AdminDAO">
+
+	<insert id="setUserboardComplaintInput">
+		insert into complaint values (default,#{vo.part},#{vo.partIdx},#{vo.cpMid},#{vo.cpContent},default);
+	</insert>
+	
+	<select id="getMemberTotRecCnt" resultType="int">
+	  <if test="level == 99">select count(*) from member;</if>
+	  <if test="level == 999">select count(*) from member where userDel='OK';</if>
+	  <if test="level != 99 and level != 999">select count(*) from member where level = #{level};</if>
+	</select>
+	
+	<select id="getMemberList" resultType="com.spring.javaclassS5.vo.MemberVO">
+		<if test="level == 99">select *, timestampdiff(day, lastDate, now()) as deleteDiff from member order by mid limit #{startIndexNo},#{pageSize};</if>
+		<if test="level == 999">select *, timestampdiff(day, lastDate, now()) as deleteDiff from member where userDel='OK' order by mid limit #{startIndexNo},#{pageSize};</if>
+		<if test="level != 99 and level != 999">select *, timestampdiff(day, lastDate, now()) as deleteDiff from member where level = #{level} order by mid limit #{startIndexNo},#{pageSize};</if>
+	</select>
+	
+	<select id="getAlcoholList" resultType="com.spring.javaclassS5.vo.AlcoholVO">
+		<if test="level == 99">select *, timestampdiff(day, lastDate, now()) as deleteDiff from member order by mid limit #{startIndexNo},#{pageSize};</if>
+		<if test="level == 999">select *, timestampdiff(day, lastDate, now()) as deleteDiff from member where userDel='OK' order by mid limit #{startIndexNo},#{pageSize};</if>
+		<if test="level != 99 and level != 999">select *, timestampdiff(day, lastDate, now()) as deleteDiff from member where level = #{level} order by mid limit #{startIndexNo},#{pageSize};</if>
+	</select>
 	
 	
+	
+	<update id="setMemberLevelCheck">
+		update member set level = #{level} where idx = #{idx};
+	</update>
+	
+	
+	
+	<delete id="setMemberDeleteOk">
+	  delete from member where idx = #{idx};
+	</delete>
 </mapper>

@@ -26,12 +26,13 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
 <div class="w3-main" style="margin-left:300px">
 	
   <div class="w3-container w3-padding-large" style="margin-bottom:32px">
-	  <a href="#"><img src="${ctp}/images/avatar_g2.jpg" style="width:65px;" class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
+	  <a href="#"><img src="${ctp}/member/${sPhoto}" style="width:150px;" class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
     <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i class="fa fa-bars"></i></span>
     <h4><b>AlcoholLover</h4>
     <p>안녕하세요 저희 사이트에서는 위스키, 리큐르, 와인, 막걸리 등등을 소개해드리고 하이볼 종류나 칵테일을 만드는법 레시피를 제공해드리며 술을 판매하고 있습니다.</p>
     <h4><b><p>Hello, our site introduces Whiskey, Liqueur, Wine, Makgeolli, etc., provides recipes for making Highball types or Cocktails, and sells Alcohol.</p></b></h4>
     <hr>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/m6oOkTshhk0?si=I_hcMIaNlPUZ7L_M" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     
 	<!-- Images of Me -->
   <div class="w3-row-padding w3-padding-16" id="about">

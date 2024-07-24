@@ -14,6 +14,7 @@ public class MessageController {
 	public String getMessage(Model model,
 			@PathVariable String msgFlag,
 			@RequestParam(name="mid", defaultValue = "", required = false) String mid,
+			@RequestParam(name="temp", defaultValue = "", required = false) String temp,
 			@RequestParam(name="idx", defaultValue = "", required = false) String idx,
 			@RequestParam(name="pag", defaultValue = "1", required = false) String pag,
 			@RequestParam(name="pageSize", defaultValue = "5", required = false) String pageSize
@@ -97,7 +98,7 @@ public class MessageController {
 		}
 		else if(msgFlag.equals("memberLoginOk")) {
 			model.addAttribute("msg", mid+"님 로그인 되셨습니다.");
-			model.addAttribute("url", "/member/memberMain");
+			model.addAttribute("url", "/?photo="+temp);
 		}
 		else if(msgFlag.equals("memberLoginNewOk")) {
 			model.addAttribute("msg", mid+"님 로그인 되셨습니다.\\n신규 비밀번호가 발급되었습니다. 검점후 회원정보를 변경해주세요.");

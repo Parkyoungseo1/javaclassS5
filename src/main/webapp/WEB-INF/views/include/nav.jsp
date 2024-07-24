@@ -1,7 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="ctp" value="${pageContext.request.contextPath}"/>
+<script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/your-kit-code.js" crossorigin="anonymous"></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <script>
   function userDelCheck() {
 	  let ans = confirm("회원 탈퇴하시겠습니까?");
@@ -68,6 +74,15 @@
 	      x.className = x.className.replace(" w3-show", "");
 	    }
 	  }
+		// Accordion 
+	  function myAccFunc2() {
+	    var x = document.getElementById("demoAcc2");
+	    if (x.className.indexOf("w3-show") == -1) {
+	      x.className += " w3-show";
+	    } else {
+	      x.className = x.className.replace(" w3-show", "");
+	    }
+	  }
 
 </script>
 <!-- Sidebar/menu -->
@@ -76,7 +91,9 @@
     <a href="#" onclick="w3_close()" class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-grey" title="close menu">
       <i class="fa fa-remove"></i>
     </a>
-    <img src="${ctp}/images/avatar_g2.jpg" style="width:45%;" class="w3-round"><br><br>
+    <c:if test="${!empty sMid}">
+    	<img src="${ctp}/member/${sPhoto}" style="width:80%;" class="w3-round"><br><br>
+    </c:if>
     <c:if test="${empty sLevel}">
 	    <a href="${ctp}/member/memberLogin" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Login</a>
 	    <a href="${ctp}/member/memberJoin" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Join</a>
@@ -90,14 +107,16 @@
 			  </div>
 			</div>
     </c:if>
+    <c:if test="${sLevel == 0}"><a href="${ctp}/admin/adminMain" class="w3-bar-item w3-button"><i class="fa-solid fa-user-tie"></i>관리자메뉴</a></c:if>
     <h4><b>ALCOHOL LOVER를 방문해 주셔서 감사합니다.</b></h4>
     <p class="w3-text-grey">MADE BY 빵서</p>
   </div>
   <div class="w3-bar-block">
     <a href="${ctp}/" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-text-teal"><i class="fa fa-th-large fa-fw w3-margin-right"></i>Main</a> 
     <a href="${ctp}/member/memberMain" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-fw w3-margin-right"></i>MEMBER</a>
+    <a href="${ctp}/member/memberUpdate" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-fw w3-margin-right"></i>정보수정</a>
     <a onclick="myAccFunc()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align" id="myBtn">
-      Alcohol <i class="fa fa-caret-down"></i>
+      <i class="fa-solid fa-whiskey-glass"></i> Alcohol <i class="fa-solid fa-caret-down"></i>
     </a>
     <div id="demoAcc" class="w3-bar-block w3-hide w3-padding-large w3-medium">
       <a href="${ctp}/alcohol/alcoholList" class="w3-bar-item w3-button w3-light-grey"><i class="fa fa-caret-right w3-margin-right"></i>All</a>
@@ -108,23 +127,36 @@
       <a href="${ctp}/alcohol/alcoholList?part=Highball" class="w3-bar-item w3-button">Highball</a> 
       <a href="${ctp}/alcohol/alcoholList?part=Cocktail" class="w3-bar-item w3-button">Cocktail</a> 
       <a href="${ctp}/alcohol/alcoholList?part=etc" class="w3-bar-item w3-button">etc</a> 
-  </div>
+  	</div>
   </div>
   <div class="w3-bar-block">
     <a onclick="myAccFunc1()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align" id="myBtn">
-       User <i class="fa fa-caret-down"></i>
+       <i class="fa-solid fa-users"></i> User <i class="fa-solid fa-caret-down"></i>
     </a>
     <div id="demoAcc1" class="w3-bar-block w3-hide w3-padding-large w3-medium">
-      <a href="${ctp}/user/userboardList" class="w3-bar-item w3-button w3-light-grey"><i class="fa fa-caret-right w3-margin-right"></i>나만의 레시피</a>
+      <a href="${ctp}/userboard/userboardList" class="w3-bar-item w3-button w3-light-grey"><i class="fa fa-caret-right w3-margin-right"></i>Recipe&자유게시판</a>
       <a href="#" class="w3-bar-item w3-button">양주</a>
       <a href="#" class="w3-bar-item w3-button">위스키</a>
       <a href="#" class="w3-bar-item w3-button">와인</a>
       <a href="#" class="w3-bar-item w3-button">막걸리</a> 
       <a href="#" class="w3-bar-item w3-button">하이볼</a> 
       <a href="#" class="w3-bar-item w3-button">칵테일</a> 
+  	</div>
   </div>
+  <div class="w3-bar-block">
+    <a onclick="myAccFunc2()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align" id="myBtn">
+       <i class="fas fa-shopping-cart"></i> Shopping Mall <i class="fas fa-caret-down"></i>
+    </a>
+    <div id="demoAcc2" class="w3-bar-block w3-hide w3-padding-large w3-medium">
+      <a href="${ctp}/userboard/userboardList" class="w3-bar-item w3-button w3-light-grey"><i class="fa fa-caret-right w3-margin-right"></i>상품리스트</a>
+      <a href="#" class="w3-bar-item w3-button">장바구니</a>
+      <a href="#" class="w3-bar-item w3-button">주문(배송)현황</a>
+      <a href="#" class="w3-bar-item w3-button">결제연습</a>
+      <a href="#" class="w3-bar-item w3-button">QnA</a> 
+      <a href="#" class="w3-bar-item w3-button">1대1문의</a> 
+  	</div>
   </div>
-    <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-envelope fa-fw w3-margin-right"></i>CONTACT</a>
+    <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-envelope fa-fw w3-margin-right"></i>공지사항</a>
   <div class="w3-panel w3-large">
     <i class="fa fa-facebook-official w3-hover-opacity"></i>
     <i class="fa fa-instagram w3-hover-opacity"></i>
@@ -133,4 +165,6 @@
     <i class="fa fa-twitter w3-hover-opacity"></i>
     <i class="fa fa-linkedin w3-hover-opacity"></i>
   </div>
+  
+  
 </nav>

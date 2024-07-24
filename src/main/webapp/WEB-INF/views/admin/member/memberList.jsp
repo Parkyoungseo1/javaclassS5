@@ -9,6 +9,87 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>memberList.jsp</title>
   <%@ include file = "/WEB-INF/views/include/bs4.jsp" %>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f7f9;
+    }
+    .container {
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      padding: 30px;
+      margin-top: 30px;
+    }
+    h3 {
+      color: #2c3e50;
+      margin-bottom: 20px;
+    }
+    .table {
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .table-dark {
+      background-color: #34495e;
+    }
+    .table-hover tbody tr:hover {
+      background-color: #ecf0f1;
+    }
+    .btn {
+      border-radius: 20px;
+      padding: 5px 15px;
+    }
+    select {
+      border-radius: 20px;
+      padding: 5px 10px;
+      border: 1px solid #bdc3c7;
+    }
+    .pagination .page-link {
+      border-radius: 20px;
+      margin: 0 3px;
+      color: #2c3e50;
+    }
+    .pagination .page-item.active .page-link {
+      background-color: #3498db;
+      border-color: #3498db;
+    }
+    .checkbox-wrapper-39 *,
+    .checkbox-wrapper-39 *::before,
+    .checkbox-wrapper-39 *::after {
+      box-sizing: border-box;
+    }
+
+    .checkbox-wrapper-39 label {
+      display: block;
+      width: 35px;
+      height: 35px;
+      cursor: pointer;
+    }
+
+    .checkbox-wrapper-39 input {
+      visibility: hidden;
+      display: none;
+    }
+
+    .checkbox-wrapper-39 input:checked ~ .checkbox {
+      transform: rotate(45deg);
+      width: 14px;
+      margin-left: 12px;
+      border-color: #24c78e;
+      border-top-color: transparent;
+      border-left-color: transparent;
+      border-radius: 0;
+    }
+
+    .checkbox-wrapper-39 .checkbox {
+      display: block;
+      width: inherit;
+      height: inherit;
+      border: 3px solid #434343;
+      border-radius: 6px;
+      transition: all 0.375s;
+    }
+  </style>
   <script>
     'use strict';
     
@@ -148,10 +229,18 @@
 <body>
 <p><br/></p>
 <div class="container">
-  <div class="row">
-    <div class="col"><input type="checkbox" name="userInfor" id="userInfor" onclick="userCheck()" /> 비공개회원만보기/전체보기</div>
+  <div class="row mb-4">
+    <div class="col">
+      <div class="checkbox-wrapper-39">
+        <label>
+          <input type="checkbox" name="userInfor" id="userInfor" onclick="userCheck()">
+          <span class="checkbox"></span>
+        </label>
+      </div>
+      <span class="ml-2">비공개회원만보기/전체보기</span>
+    </div>
     <div class="col text-right">
-      <select name="levelItem" id="levelItem" onchange="levelItemCheck()">
+      <select name="levelItem" id="levelItem" onchange="levelItemCheck()" class="form-control-sm">
         <option value="99"   ${level >= 4  ? "selected" : ""}>전체보기</option>
         <option value="1"    ${level == 1 ? "selected"  : ""}>우수회원</option>
         <option value="2"    ${level == 2 ? "selected"  : ""}>정회원</option>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.javaclassS5.dao.UserboardDAO">
+	
+	<select id="getUserboardList" resultType="com.spring.javaclassS5.vo.UserboardVO">
+		select *,datediff(wDate, now()) as date_diff,
+		  timestampdiff(hour, wDate, now()) as hour_diff,
+		  (select count(*) from userboardReply where userboardIdx=b.idx) as replyCnt
+		  from userboard b <if test="part != 'Recipe'"> where part = #{part} </if>
+		  order by idx desc limit #{startIndexNo},#{pageSize};
+	</select>
+	
+	<select id="getUserboardContent" resultType="com.spring.javaclassS5.vo.UserboardVO">
+		select * from userboard where idx = #{idx};
+	</select>
+	
+	<select id="totRecCnt" resultType="int">
+		select count(*) from userboard <if test="part != 'Recipe'"> where part = #{part} </if>;
+	</select>
+	
+	<!-- <![CDATA[]]>       <![CDATA[]]> -->
+	<select id="getPreNexSearch" resultType="com.spring.javaclassS5.vo.UserboardVO">
+	  <if test="str == 'preVo'">
+	    select idx,title from userboard where <![CDATA[idx < #{idx}]]> order by idx desc limit 1;
+	  </if>
+	  <if test="str != 'preVo'">
+	    select idx,title from userboard where <![CDATA[idx > #{idx}]]> order by idx limit 1;
+	  </if>
+	</select>
+
+	<select id="getUserboardParentReplyCheck" resultType="com.spring.javaclassS5.vo.UserboardReplyVO">
+	  select * from userboardReply where userboardIdx = #{userboardIdx} order by idx desc limit 1;
+	</select>
+	
+	<select id="getUserboardReply" resultType="com.spring.javaclassS5.vo.UserboardReplyVO">
+	  select * from userboardReply where userboardIdx = #{idx} order by re_order;
+	</select>
+	
+	<select id="totRecCntSearch"  resultType="int">
+		select count(*) from userboard where ${search} like concat("%",#{searchString},"%"); 
+	</select>
+	
+	<select id="getUserboardSearchList" resultType="com.spring.javaclassS5.vo.UserboardVO">
+		select * from userboard where ${search} like concat("%",#{searchString},"%") order by idx desc limit #{startIndexNo},#{pageSize};
+	</select>
+
+	<insert id="setUserboardInput">
+	  insert into userboard values (default,#{vo.mid},#{vo.nickName},#{vo.title},#{vo.part},#{vo.content},default,#{vo.hostIp},#{vo.openSw},default,default,default);
+	</insert>
+
+	<insert id="setUserboardReplyInput">
+		insert into userboardReply values (default,#{replyVO.userboardIdx},#{replyVO.re_step},#{replyVO.re_order},#{replyVO.mid},#{replyVO.nickName},default,#{replyVO.hostIp},#{replyVO.content});
+	</insert>
+
+  <insert id="setUserboardComplaintInput">
+  	insert into userboard values idx = #{idx}
+  </insert>
+  
+	
+	<update id="setReadNumPlus">
+	  update userboard set readNum = readNum + 1 where idx = #{idx};
+	</update>
+	
+	<update id="setUserboardUpdate">
+	  update userboard set title=#{vo.title}, content=#{vo.content}, hostIp=#{vo.hostIp}, openSw=#{vo.openSw}, wDate=now() where idx=#{vo.idx};
+	</update>
+	
+	<update id="setReplyOrderUpdate">
+	  update userboardReply set re_order = re_order + 1 where userboardIdx = #{userboardIdx} and re_order > #{re_order};
+	</update>
+	
+	<delete id="setUserboardDelete">
+	  delete from userboard where idx = #{idx};
+	</delete>
+	
+	<delete id="setUserboardReplyDelete">
+    delete from userboardReply where idx = #{idx}
+	</delete>
+	
+	
+	
+</mapper>

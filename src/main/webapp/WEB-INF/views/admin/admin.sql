@@ -12,7 +12,7 @@ create table complaint(
 );
 desc complaint;
 
-insert into complaint values (default, 'board', 24, 'hkd1234', '광고성 글', default);
+insert into complaint values (default, 'userboard', 1, 'hkd1234', '광고성 글', default);
 
 select * from complaint;
 

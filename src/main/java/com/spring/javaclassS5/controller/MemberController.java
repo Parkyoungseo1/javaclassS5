@@ -119,6 +119,7 @@ public class MemberController {
 		else if(vo.getLevel() == 3) strLevel = "준회원";
 		
 		session.setAttribute("sMid", vo.getMid());
+		session.setAttribute("sPhoto", vo.getPhoto());
 		session.setAttribute("sNickName", vo.getNickName());
 		session.setAttribute("sLevel", vo.getLevel());
 		session.setAttribute("strLevel", strLevel);
@@ -140,7 +141,7 @@ public class MemberController {
 	
   // 일반 로그인 처리하기
 	@RequestMapping(value = "/memberLogin", method = RequestMethod.POST)
-	public String memberLoginPost(HttpServletRequest request, HttpServletResponse response, HttpSession session,
+	public String memberLoginPost(HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model,
 			@RequestParam(name="mid", defaultValue = "hkd1234", required = false) String mid,
 			@RequestParam(name="pwd", defaultValue = "1234", required = false) String pwd,
 			@RequestParam(name="idSave", defaultValue = "1234", required = false) String idSave
@@ -159,6 +160,7 @@ public class MemberController {
 			
 			session.setAttribute("sMid", mid);
 			session.setAttribute("sNickName", vo.getNickName());
+			session.setAttribute("sPhoto", vo.getPhoto());
 			session.setAttribute("sLevel", vo.getLevel());
 			session.setAttribute("strLevel", strLevel);
 			
@@ -190,7 +192,13 @@ public class MemberController {
 			// 방문카운트
 			memberService.setMemberInforUpdate(mid, point);
 			
-			return "redirect:/message/memberLoginOk?mid="+mid;
+			// 회원 사진 띄우기
+			mid = (String) session.getAttribute("sMid");
+			MemberVO mVo = memberService.getMemberIdCheck(mid);
+			model.addAttribute("mVo", mVo);
+			mVo.setPhoto(vo.getPhoto());
+			
+			return "redirect:/message/memberLoginOk?mid="+mid+"&temp="+vo.getPhoto();
 		}
 		else {
 			return "redirect:/message/memberLoginNo";

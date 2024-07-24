@@ -6,26 +6,87 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>adminContent.jsp</title>
+  <title>관리자 대시보드</title>
   <%@ include file = "/WEB-INF/views/include/bs4.jsp" %>
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <style>
+    .card {
+      transition: transform 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    .card-icon {
+      font-size: 2rem;
+      margin-bottom: 15px;
+    }
+  </style>
 </head>
-<body>
-<p><br/></p>
-<div class="container">
-  <h3>관리자 메인화면</h3>
-  <hr/>
-  <!-- 
-    - 방명록은 최근 1주일안에 작성된글의 개수를 보여준다.
-    - 게시판은....__________
-    - 신규등록건수 출력
-    - 탈퇴신청회원 건수 출력 
-  -->
-  <p>방명록 새글 : ???</p>
-  <p>게시글 새글 : ???</p>
-  <p>신고글(최근1주일) : ???건</p>
-  <p>신규등록회원 : <a href="MemberList.ad?level=1"><b>${mCount}</b></a>건</p>
-  <p>탈퇴신청회원 : <a href=""><b>${m99Count}</b></a>건</p>
+<body class="bg-light">
+<div class="container mt-5">
+  <h2 class="text-center mb-4">관리자 대시보드</h2>
+  <hr class="mb-4"/>
+  
+  <div class="row">
+    <div class="col-md-4 mb-3">
+      <div class="card bg-primary text-white">
+        <div class="card-body text-center">
+          <i class="fas fa-book-open card-icon"></i>
+          <h5 class="card-title">방명록 새글</h5>
+          <p class="card-text display-4">???</p>
+          <p class="card-text"><small>최근 1주일</small></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <div class="card bg-success text-white">
+        <div class="card-body text-center">
+          <i class="fas fa-clipboard card-icon"></i>
+          <h5 class="card-title">게시글 새글</h5>
+          <p class="card-text display-4">???</p>
+          <p class="card-text"><small>최근 1주일</small></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <div class="card bg-warning text-dark">
+        <div class="card-body text-center">
+          <i class="fas fa-exclamation-triangle card-icon"></i>
+          <h5 class="card-title">신고글</h5>
+          <p class="card-text display-4">???</p>
+          <p class="card-text"><small>최근 1주일</small></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-6 mb-3">
+      <div class="card bg-info text-white">
+        <div class="card-body text-center">
+          <i class="fas fa-user-plus card-icon"></i>
+          <h5 class="card-title">신규등록회원</h5>
+          <p class="card-text display-4"><a href="MemberList.ad?level=1" class="text-white"><b>${mCount}</b></a></p>
+          <p class="card-text"><small>클릭하여 자세히 보기</small></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 mb-3">
+      <div class="card bg-danger text-white">
+        <div class="card-body text-center">
+          <i class="fas fa-user-minus card-icon"></i>
+          <h5 class="card-title">탈퇴신청회원</h5>
+          <p class="card-text display-4"><a href="" class="text-white"><b>${m99Count}</b></a></p>
+          <p class="card-text"><small>클릭하여 자세히 보기</small></p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-<p><br/></p>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
