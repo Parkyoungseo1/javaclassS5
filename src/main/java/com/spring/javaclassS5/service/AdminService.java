@@ -24,4 +24,6 @@ public interface AdminService {
 
 	public ArrayList<AlcoholVO> getAlcoholList(int startIndexNo, int pageSize, int level);
 
+	public int setflavorComplaintInput(AdminVO vo);
+
 }

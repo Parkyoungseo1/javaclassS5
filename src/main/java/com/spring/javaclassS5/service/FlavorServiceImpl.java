@@ -17,56 +17,58 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.javaclassS5.common.JavaclassProvide;
-import com.spring.javaclassS5.dao.AlcoholDAO;
-import com.spring.javaclassS5.vo.AlcoholVO;
+import com.spring.javaclassS5.dao.FlavorDAO;
+import com.spring.javaclassS5.vo.FlavorReplyVO;
+import com.spring.javaclassS5.vo.FlavorVO;
 
 import net.coobird.thumbnailator.Thumbnailator;
 
 @Service
-public class AlcoholServiceImpl implements AlcoholService {
+public class FlavorServiceImpl implements FlavorService {
 	
 	@Autowired
-	AlcoholDAO alcoholDAO;
+	FlavorDAO flavorDAO;
 	
+	@Autowired
 	JavaclassProvide javaclassProvide;
 	
 	@Override
-	public ArrayList<AlcoholVO> getAlcoholList() {
-		return alcoholDAO.getAlcoholList();
+	public ArrayList<FlavorVO> getFlavorList() {
+		return flavorDAO.getFlavorList();
 	}
 
 	@Override
-	public int setAlcoholInput(AlcoholVO vo) {
-		return alcoholDAO.setAlcoholInput(vo);
+	public int setFlavorInput(FlavorVO vo) {
+		return flavorDAO.setFlavorInput(vo);
 	}
 
 	@Override
-	public AlcoholVO getAlcoholContent(int idx) {
-		return alcoholDAO.getAlcoholContent(idx);
+	public FlavorVO getFlavorContent(int idx) {
+		return flavorDAO.getFlavorContent(idx);
 	}
 
 	@Override
-	public ArrayList<AlcoholVO> getAlcoholList(int startIndexNo, int pageSize, String part) {
-		return alcoholDAO.getAlcoholList(startIndexNo, pageSize, part);
+	public ArrayList<FlavorVO> getFlavorList(int startIndexNo, int pageSize, String part) {
+		return flavorDAO.getFlavorList(startIndexNo, pageSize, part);
 	}
 
 	@Override
 	public void setReadNumPlus(int idx) {
-		alcoholDAO.setReadNumPlus(idx);
+		flavorDAO.setReadNumPlus(idx);
 	}
 
 	@Override
-	public AlcoholVO getPreNexSearch(int idx, String str) {
-		return alcoholDAO.getPreNexSearch(idx, str);
+	public FlavorVO getPreNexSearch(int idx, String str) {
+		return flavorDAO.getPreNexSearch(idx, str);
 	}
 
-	// content에 이미지가 있다면 이미지를 'ckeditor'폴더에서 'alcohol'폴더로 복사처리한다.
+	// content에 이미지가 있다면 이미지를 'ckeditor'폴더에서 'flavor'폴더로 복사처리한다.
 	@Override
 	public void imgCheck(String content) {
-		//                0         1         2         3         4
-		//                012345678901234567890123456789012345678901234
+		//                0         1         2         3         4 
+		//                012345678901234567890123456789012345678901234567890
 		// <p><img alt="" src="/javaclassS5/resources/data/ckeditor/240626093722_5.jpg" style="height:433px; width:700px" /></p>
-		// <p><img alt="" src="/javaclassS5/resources/data/alcohol/240626093722_5.jpg" style="height:433px; width:700px" /></p>
+		// <p><img alt="" src="/javaclassS5/resources/data/flavor/240717155448_lights.jpg" style="height:433px; width:700px" /></p>
 		
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
 		String realPath = request.getSession().getServletContext().getRealPath("/resources/data/");
@@ -79,9 +81,9 @@ public class AlcoholServiceImpl implements AlcoholService {
 			String imgFile = nextImg.substring(0, nextImg.indexOf("\""));
 			
 			String origFilePath = realPath + "ckeditor/" + imgFile;
-			String copyFilePath = realPath + "alcohol/" + imgFile;
+			String copyFilePath = realPath + "flavor/" + imgFile;
 			
-			fileCopyCheck(origFilePath, copyFilePath);	// ckeditor폴더의 그림파일을 alcohol폴더위치로 복사처리하는 메소드.
+			fileCopyCheck(origFilePath, copyFilePath);	// ckeditor폴더의 그림파일을 flavor폴더위치로 복사처리하는 메소드.
 			
 			if(nextImg.indexOf("src=\"/") == -1) sw = false;
 			else nextImg = nextImg.substring(nextImg.indexOf("src=\"/") + position);
@@ -113,23 +115,23 @@ public class AlcoholServiceImpl implements AlcoholService {
 	public void imgBackup(String content) {
 		//                0         1         2         3
 		//                01234567890123456789012345678901234567890
-		// <p><img alt="" src="/javaclassS/data/alcohol/240626093722_5.jpg" style="height:433px; width:700px" /></p>
-		// <p><img alt="" src="/javaclassS/data/ckeditor/240626093722_5.jpg" style="height:433px; width:700px" /></p>
+		// <p><img alt="" src="/javaclassS5/resources/data/flavor/240717155448_lights.jpg" style="height:433px; width:700px" /></p>
+		// <p><img alt="" src="/javaclassS5/data/ckeditor/240626093722_5.jpg" style="height:433px; width:700px" /></p>
 		
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
 		String realPath = request.getSession().getServletContext().getRealPath("/resources/data/");
 		
-		int position = 28;
+		int position = 38;
 		String nextImg = content.substring(content.indexOf("src=\"/") + position);
 		boolean sw = true;
 		
 		while(sw) {
 			String imgFile = nextImg.substring(0, nextImg.indexOf("\""));
 			
-			String origFilePath = realPath + "alcohol/" + imgFile;
+			String origFilePath = realPath + "flavor/" + imgFile;
 			String copyFilePath = realPath + "ckeditor/" + imgFile;
 			
-			fileCopyCheck(origFilePath, copyFilePath);	// ckeditor폴더의 그림파일을 alcohol폴더위치로 복사처리하는 메소드.
+			fileCopyCheck(origFilePath, copyFilePath);	// ckeditor폴더의 그림파일을 flavor폴더위치로 복사처리하는 메소드.
 			
 			if(nextImg.indexOf("src=\"/") == -1) sw = false;
 			else nextImg = nextImg.substring(nextImg.indexOf("src=\"/") + position);
@@ -140,22 +142,22 @@ public class AlcoholServiceImpl implements AlcoholService {
 	public void imgDelete(String content) {
 		//                0         1         2         3
 		//                01234567890123456789012345678901234567890
-		// <p><img alt="" src="/javaclassS/data/alcohol/240626093722_5.jpg" style="height:433px; width:700px" /></p>
+		// <p><img alt="" src="/javaclassS5/resources/data/flavor/240716155157_p2.jpg" style="height:433px; width:700px" /></p>
 		// <p><img alt="" src="/javaclassS/data/ckeditor/240626093722_5.jpg" style="height:433px; width:700px" /></p>
 		
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
 		String realPath = request.getSession().getServletContext().getRealPath("/resources/data/");
 		
-		int position = 28;
+		int position = 38;
 		String nextImg = content.substring(content.indexOf("src=\"/") + position);
 		boolean sw = true;
 		
 		while(sw) {
 			String imgFile = nextImg.substring(0, nextImg.indexOf("\""));
 			
-			String origFilePath = realPath + "alcohol/" + imgFile;
+			String origFilePath = realPath + "flavor/" + imgFile;
 			
-			fileDelete(origFilePath);	// alcohol폴더의 그림파일 삭제한다.
+			fileDelete(origFilePath);	// flavor폴더의 그림파일 삭제한다.
 			
 			if(nextImg.indexOf("src=\"/") == -1) sw = false;
 			else nextImg = nextImg.substring(nextImg.indexOf("src=\"/") + position);
@@ -169,21 +171,52 @@ public class AlcoholServiceImpl implements AlcoholService {
 	}
 
 	@Override
-	public int setAlcoholUpdate(AlcoholVO vo) {
-		return alcoholDAO.setAlcoholUpdate(vo);
+	public int setFlavorUpdate(FlavorVO vo) {
+		return flavorDAO.setFlavorUpdate(vo);
 	}
 
 	@Override
-	public int setAlcoholDelete(int idx) {
-		return alcoholDAO.setAlcoholDelete(idx);
+	public int setFlavorDelete(int idx) {
+		return flavorDAO.setFlavorDelete(idx);
 	}
 
 	@Override
-	public List<AlcoholVO> getAlcoholSearchList(int startIndexNo, int pageSize, String search, String searchString) {
-		return alcoholDAO.getAlcoholSearchList(startIndexNo, pageSize, search, searchString);
+	public FlavorReplyVO getFlavorParentReplyCheck(int flavorIdx) {
+		return flavorDAO.getFlavorParentReplyCheck(flavorIdx);
 	}
 
-	// 썸네일 저장
+	@Override
+	public int setFlavorReplyInput(FlavorReplyVO replyVO) {
+		return flavorDAO.setFlavorReplyInput(replyVO);
+	}
+
+	@Override
+	public List<FlavorReplyVO> getFlavorReply(int idx) {
+		return flavorDAO.getFlavorReply(idx);
+	}
+
+	@Override
+	public void setReplyOrderUpdate(int flavorIdx, int re_order) {
+		flavorDAO.setReplyOrderUpdate(flavorIdx, re_order);
+	}
+
+	@Override
+	public List<FlavorVO> getFlavorSearchList(int startIndexNo, int pageSize, String search, String searchString) {
+		return flavorDAO.getFlavorSearchList(startIndexNo, pageSize, search, searchString);
+	}
+	
+	//게시글 삭제
+	@Override
+	public int setFlavorReplyDelete(int idx) {
+		return flavorDAO.setFlavorReplyDelete(idx);
+	}
+	
+	// 게시글 신고
+	@Override
+	public int setFlavorComplaintInput(int idx) {
+		return flavorDAO.setFlavorComplaintInput(idx);
+	}
+
 	@Override
 	public String setThumbnailCreate(MultipartFile file) {
 		String res = "";
@@ -211,4 +244,5 @@ public class AlcoholServiceImpl implements AlcoholService {
 		
 		return res;
 	}
+
 }

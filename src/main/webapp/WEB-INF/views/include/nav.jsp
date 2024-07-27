@@ -83,6 +83,15 @@
 	      x.className = x.className.replace(" w3-show", "");
 	    }
 	  }
+		// Accordion 
+	  function myAccFunc3() {
+	    var x = document.getElementById("demoAcc3");
+	    if (x.className.indexOf("w3-show") == -1) {
+	      x.className += " w3-show";
+	    } else {
+	      x.className = x.className.replace(" w3-show", "");
+	    }
+	  }
 
 </script>
 <!-- Sidebar/menu -->
@@ -108,7 +117,7 @@
 			</div>
     </c:if>
     <c:if test="${sLevel == 0}"><a href="${ctp}/admin/adminMain" class="w3-bar-item w3-button"><i class="fa-solid fa-user-tie"></i>관리자메뉴</a></c:if>
-    <h4><b>ALCOHOL LOVER를 방문해 주셔서 감사합니다.</b></h4>
+    <h4><b>저희 주절주절(을) 방문해 주셔서 감사합니다.</b></h4>
     <p class="w3-text-grey">MADE BY 빵서</p>
   </div>
   <div class="w3-bar-block">
@@ -141,6 +150,19 @@
       <a href="#" class="w3-bar-item w3-button">막걸리</a> 
       <a href="#" class="w3-bar-item w3-button">하이볼</a> 
       <a href="#" class="w3-bar-item w3-button">칵테일</a> 
+  	</div>
+  </div>
+  <div class="w3-bar-block">
+    <a onclick="myAccFunc3()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align" id="myBtn">
+       <i class="fas fa-shopping-cart"></i> Tasting Note <i class="fas fa-caret-down"></i>
+    </a>
+    <div id="demoAcc3" class="w3-bar-block w3-hide w3-padding-large w3-medium">
+      <a href="${ctp}/flavor/flavorList" class="w3-bar-item w3-button w3-light-grey"><i class="fa fa-caret-right w3-margin-right"></i>ALL</a>
+      <a href="#" class="w3-bar-item w3-button">장바구니</a>
+      <a href="#" class="w3-bar-item w3-button">주문(배송)현황</a>
+      <a href="#" class="w3-bar-item w3-button">결제연습</a>
+      <a href="#" class="w3-bar-item w3-button">QnA</a> 
+      <a href="#" class="w3-bar-item w3-button">1대1문의</a> 
   	</div>
   </div>
   <div class="w3-bar-block">

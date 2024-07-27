@@ -4,12 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.javaclassS5.dao.AlcoholDAO;
+import com.spring.javaclassS5.dao.FlavorDAO;
 import com.spring.javaclassS5.dao.UserboardDAO;
 import com.spring.javaclassS5.vo.PageVO;
 
 @Service
 public class PageProcess {
-
+	
+	@Autowired
+	FlavorDAO flavorDAO;
+	
 	@Autowired
 	UserboardDAO userboardDAO;
 	
@@ -38,6 +42,15 @@ public class PageProcess {
 			else {
 				search = part;
 				totRecCnt = userboardDAO.totRecCntSearch(search, searchString);
+			}
+		}
+		else if(section.equals("flavor")) {
+			if(searchString.equals("")) {
+				totRecCnt = flavorDAO.totRecCnt(part);
+			}
+			else {
+				search = part;
+				totRecCnt = flavorDAO.totRecCntSearch(search, searchString);
 			}
 		}
 			

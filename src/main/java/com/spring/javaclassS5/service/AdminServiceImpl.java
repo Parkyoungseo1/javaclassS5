@@ -61,6 +61,12 @@ public class AdminServiceImpl implements AdminService {
 	public ArrayList<AlcoholVO> getAlcoholList(int startIndexNo, int pageSize, int level) {
 		return adminDAO.getAlcoholList(startIndexNo, pageSize, level);
 	}
+
+	@Override
+	public int setflavorComplaintInput(AdminVO vo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 	
 }

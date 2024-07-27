@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.javaclassS5.dao.FlavorDAO">
+	
+	<select id="getFlavorList" resultType="com.spring.javaclassS5.vo.FlavorVO">
+		select *,datediff(wDate, now()) as date_diff,
+		  timestampdiff(hour, wDate, now()) as hour_diff,
+		  (select count(*) from flavorReply where flavorIdx=b.idx) as replyCnt
+		  from flavor b <if test="part != 'All'"> where part = #{part} </if>
+		  order by idx desc limit #{startIndexNo},#{pageSize};
+	</select>
+	
+	<select id="getFlavorContent" resultType="com.spring.javaclassS5.vo.FlavorVO">
+		select * from flavor where idx = #{idx};
+	</select>
+	
+	<select id="totRecCnt" resultType="int">
+		select count(*) from flavor <if test="part != 'Recipe'"> where part = #{part} </if>;
+	</select>
+	
+	<!-- <![CDATA[]]>       <![CDATA[]]> -->
+	<select id="getPreNexSearch" resultType="com.spring.javaclassS5.vo.FlavorVO">
+	  <if test="str == 'preVo'">
+	    select idx,title from flavor where <![CDATA[idx < #{idx}]]> order by idx desc limit 1;
+	  </if>
+	  <if test="str != 'preVo'">
+	    select idx,title from flavor where <![CDATA[idx > #{idx}]]> order by idx limit 1;
+	  </if>
+	</select>
+
+	<select id="getFlavorParentReplyCheck" resultType="com.spring.javaclassS5.vo.FlavorReplyVO">
+	  select * from flavorReply where flavorIdx = #{flavorIdx} order by idx desc limit 1;
+	</select>
+	
+	<select id="getFlavorReply" resultType="com.spring.javaclassS5.vo.FlavorReplyVO">
+	  select * from flavorReply where flavorIdx = #{idx} order by re_order;
+	</select>
+	
+	<select id="totRecCntSearch"  resultType="int">
+		select count(*) from flavor where ${search} like concat("%",#{searchString},"%"); 
+	</select>
+	
+	<select id="getFlavorSearchList" resultType="com.spring.javaclassS5.vo.FlavorVO">
+		select * from flavor where ${search} like concat("%",#{searchString},"%") order by idx desc limit #{startIndexNo},#{pageSize};
+	</select>
+
+	<insert id="setFlavorInput">
+	  insert into flavor values (default,#{vo.mid},#{vo.nickName},#{vo.title},#{vo.part},#{vo.content},default,#{vo.hostIp},#{vo.openSw},default,default,default,#{vo.thumbnail});
+	</insert>
+
+	<insert id="setFlavorReplyInput">
+		insert into flavorReply values (default,#{replyVO.flavorIdx},#{replyVO.re_step},#{replyVO.re_order},#{replyVO.mid},#{replyVO.nickName},default,#{replyVO.hostIp},#{replyVO.content});
+	</insert>
+
+  <insert id="setFlavorComplaintInput">
+  	insert into flavor values idx = #{idx}
+  </insert>
+  
+	
+	<update id="setReadNumPlus">
+	  update flavor set readNum = readNum + 1 where idx = #{idx};
+	</update>
+	
+	<update id="setFlavorUpdate">
+	  update flavor set title=#{vo.title}, content=#{vo.content}, hostIp=#{vo.hostIp}, openSw=#{vo.openSw}, wDate=now() where idx=#{vo.idx};
+	</update>
+	
+	<update id="setReplyOrderUpdate">
+	  update flavorReply set re_order = re_order + 1 where flavorIdx = #{flavorIdx} and re_order > #{re_order};
+	</update>
+	
+	<delete id="setFlavorDelete">
+	  delete from flavor where idx = #{idx};
+	</delete>
+	
+	<delete id="setFlavorReplyDelete">
+    delete from flavorReply where idx = #{idx}
+	</delete>
+	
+	
+	
+</mapper>
