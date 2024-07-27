@@ -72,7 +72,8 @@
       <div class="col-md-4">
         <div style="text-align:center" class="mt-1">
           <a href="${ctp}/dbShop/dbProductContent?idx=${vo.idx}">
-            <img src="${ctp}/product/${vo.FSName}" width="200px" height="180px"/>
+<%--            <img src="${ctp}/product/${vo.FSName}" width="200px" height="180px"/>--%>
+            <img src="../../../resources/images/${vo.FSName}" width="200px" height="180px"/>
             <div><font size="2">${vo.productName}</font></div>
             <div><font size="2" color="orange"><fmt:formatNumber value="${vo.mainPrice}" pattern="#,###"/>원</font></div>
             <div><font size="2">${vo.detail}</font></div>

@@ -11,7 +11,6 @@ public class DbProductVO {
 	private int mainPrice;
 	private String fSName;
 	private String content;
-	
 	private String categoryMainCode;
 	private String categoryMainName;
 	private String categoryMiddleCode;

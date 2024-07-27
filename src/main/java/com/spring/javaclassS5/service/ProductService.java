@@ -1,11 +1,11 @@
-//package com.spring.javaclassS5.service;
-//
-//import java.util.List;
-//
-//import com.spring.javaclassS5.vo.ProductVO;
-//
-//public interface ProductService {
-//
-//	Object getAllProducts();
-//	
-//}
+package com.spring.javaclassS5.service;
+
+import com.spring.javaclassS5.vo.ProductVO;
+
+import java.sql.SQLException;
+import java.util.List;
+
+public interface ProductService {
+
+    List<ProductVO> getAllProducts() throws SQLException;
+}

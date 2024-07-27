@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.javaclassS5.dao.ProductDAO">
+	
+	<select id="getAllProducts" resultType="com.spring.javaclassS5.vo.DbProductVO">
+		SELECT
+		IDX AS idx
+		,CATEGORYMAINCODE AS categoryMainCode
+		,CATEGORYMIDDLECODE AS categoryMiddleCode
+		,CATEGORYSUBCODE AS categorySubCode
+		,PRODUCTCODE AS productCode
+		,PRODUCTNAME AS productName
+		,DETAIL AS detail
+		,MAINPRICE AS mainPrice
+		,FSNAME AS fSName
+		,CONTENT AS content
+		FROM dbproduct d
+		WHERE 1=1;
+	</select>
+
+</mapper>

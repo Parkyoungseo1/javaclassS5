@@ -170,7 +170,7 @@
        <i class="fas fa-shopping-cart"></i> Shopping Mall <i class="fas fa-caret-down"></i>
     </a>
     <div id="demoAcc2" class="w3-bar-block w3-hide w3-padding-large w3-medium">
-      <a href="${ctp}/userboard/userboardList" class="w3-bar-item w3-button w3-light-grey"><i class="fa fa-caret-right w3-margin-right"></i>상품리스트</a>
+      <a href="${ctp}/product/productList" class="w3-bar-item w3-button w3-light-grey"><i class="fa fa-caret-right w3-margin-right"></i>상품리스트</a>
       <a href="#" class="w3-bar-item w3-button">장바구니</a>
       <a href="#" class="w3-bar-item w3-button">주문(배송)현황</a>
       <a href="#" class="w3-bar-item w3-button">결제연습</a>
