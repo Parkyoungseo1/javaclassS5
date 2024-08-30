@@ -43,6 +43,18 @@
 	<select id="getUserboardSearchList" resultType="com.spring.javaclassS5.vo.UserboardVO">
 		select * from userboard where ${search} like concat("%",#{searchString},"%") order by idx desc limit #{startIndexNo},#{pageSize};
 	</select>
+	
+	<select id="complaintTotRecCnt" resultType="int">
+		select count(*) from userboard <if test="part != '전체'" >where part = #{part} </if>;
+	</select>
+	
+	<select id="getComplaintList" resultType="com.spring.javaclassS5.vo.UserboardVO">
+		select * from complaint;
+	</select>
+	
+	<select id="getUserboardCount"  resultType="int">
+		select count(*) from userboard;
+	</select>
 
 	<insert id="setUserboardInput">
 	  insert into userboard values (default,#{vo.mid},#{vo.nickName},#{vo.title},#{vo.part},#{vo.content},default,#{vo.hostIp},#{vo.openSw},default,default,default);
@@ -76,6 +88,7 @@
 	<delete id="setUserboardReplyDelete">
     delete from userboardReply where idx = #{idx}
 	</delete>
+	
 	
 	
 	

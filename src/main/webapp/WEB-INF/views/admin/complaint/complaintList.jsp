@@ -58,27 +58,23 @@
     <tr class="table-dark text-dark">
       <th>번호</th>
       <th>분류</th>
-      <th>글제목</th>
-      <th>글쓴이</th>
       <th>신고자</th>
       <th>신고내역</th>
       <th>신고날짜</th>
-      <th>표시여부</th>
+      <!-- <th>표시여부</th> -->
       <th>삭제</th>
     </tr>
     <c:set var="complaintCnt" value="${complaintCnt}" />
     <c:forEach var="vo" items="${vos}" varStatus="st">
       <tr>
-        <td>${complaintCnt}</td>
+        <td>${vo.idx}</td>
         <td>${vo.part}</td>
-        <td>${vo.title}</td>
-        <td>${vo.nickName}</td>
         <td>${vo.cpMid}</td>
         <td>${vo.cpContent}</td>
         <td>${vo.cpDate}</td>
-        <td>
+        <%-- <td>
           <a href="javascript:complaintCheck('${vo.part}','${vo.partIdx}','${vo.complaint}')">${vo.complaint == 'NO' ? '표시중' : '감추기'}</a>
-        </td>
+        </td> --%>
         <td>
           <button onclick="deleteComplaint(${vo.idx})" class="btn btn-danger btn-sm">삭제</button>
         </td>

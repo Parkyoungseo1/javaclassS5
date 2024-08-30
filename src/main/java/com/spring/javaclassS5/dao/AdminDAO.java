@@ -1,6 +1,7 @@
 package com.spring.javaclassS5.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -23,5 +24,12 @@ public interface AdminDAO {
 	public ArrayList<MemberVO> getMemberList(@Param("startIndexNo") int startIndexNo, @Param("pageSize") int pageSize, @Param("level") int level);
 
 	public ArrayList<AlcoholVO> getAlcoholList(@Param("startIndexNo") int startIndexNo, @Param("pageSize") int pageSize, @Param("level") int level);
+
+	public int setUserComplaint(@Param("idx") int idx);
+
+	public List<AdminVO> getComplaintList(@Param("startIndexNo") int startIndexNo, @Param("pageSize") int pageSize, @Param("part") String part);
+
+	public int totRecCnt(@Param("part") String part);
+
 
 }

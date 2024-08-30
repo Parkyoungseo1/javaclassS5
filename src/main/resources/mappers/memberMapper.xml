@@ -18,6 +18,14 @@
 		select * from member where nickName = #{nickName} and email = #{email} limit 1;
 	</select>
 	
+	<select id="getNewMemberCnt" resultType="int">
+		select count(*) from member where <![CDATA[datediff(now(), startDate) < 7]]> order by idx desc;
+	</select>
+	
+	<select id="getUserNoCnt" resultType="int">
+		select count(*) from member where userDel = 'OK';
+	</select>
+	
 	
 	
 	<insert id="setMemberJoinOk">

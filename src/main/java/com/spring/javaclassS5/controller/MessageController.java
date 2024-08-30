@@ -140,6 +140,10 @@ public class MessageController {
 			model.addAttribute("msg", "회원 로그인후 사용하세요");
 			model.addAttribute("url", "/member/memberLogin");
 		}
+		else if(msgFlag.equals("nomember")) {
+			model.addAttribute("msg", "회원 로그인후 사용하세요");
+			model.addAttribute("url", "/member/memberLogin");
+		}
 		else if(msgFlag.equals("memberLevelNo")) {
 			model.addAttribute("msg", "회원 등급을 확인하세요.");
 			model.addAttribute("url", "/member/memberMain");
@@ -187,6 +191,20 @@ public class MessageController {
 		else if(msgFlag.equals("midSameSearch")) {
 			model.addAttribute("msg", "같은 아이디를 가진 회원이 존재합니다.\\n아이디 확인후 다시 로그인해 주세요.");
 			model.addAttribute("url", "/member/memberLogin");
+		}
+		else if(msgFlag.equals("tastingNoteInputOk")) {
+			System.out.println("메세지 컨트롤러 입장");
+			model.addAttribute("msg", "게시물이 업로드 되었습니다.");
+			model.addAttribute("url", "/tastingNote/tastingNoteList");
+		}
+		else if(msgFlag.equals("tastingNoteInputNo")) {
+			model.addAttribute("msg", "게시물이 업로드 실패~~");
+			model.addAttribute("url", "/tastingNote/tastingNoteList");
+		}
+		else if(msgFlag.equals("tastingNoteDeleteOk")) {
+			System.out.println("삭제");
+			model.addAttribute("msg", "게시물이 삭제 되었습니다.");
+			model.addAttribute("url", "/tastingNote/tastingNoteList");
 		}
 		
 		

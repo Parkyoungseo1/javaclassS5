@@ -3,8 +3,10 @@ package com.spring.javaclassS5.pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.spring.javaclassS5.dao.AdminDAO;
 import com.spring.javaclassS5.dao.AlcoholDAO;
 import com.spring.javaclassS5.dao.FlavorDAO;
+import com.spring.javaclassS5.dao.QnaDAO;
 import com.spring.javaclassS5.dao.UserboardDAO;
 import com.spring.javaclassS5.vo.PageVO;
 
@@ -19,6 +21,12 @@ public class PageProcess {
 	
 	@Autowired
 	AlcoholDAO alcoholDAO;
+	
+	@Autowired
+	AdminDAO adminDAO;
+	
+	@Autowired
+	QnaDAO qnaDAO;
 
 	public PageVO totRecCnt(int pag, int pageSize, String section, String part, String searchString) {
 		PageVO pageVO = new PageVO();
@@ -53,6 +61,10 @@ public class PageProcess {
 				totRecCnt = flavorDAO.totRecCntSearch(search, searchString);
 			}
 		}
+		else if(section.equals("complaint")) {
+			totRecCnt = adminDAO.totRecCnt(part);
+		}
+		else if(section.equals("qna")) totRecCnt = qnaDAO.totRecCnt();
 			
 			
 		int totPage = (totRecCnt % pageSize) == 0 ? (totRecCnt / pageSize) : (totRecCnt / pageSize) + 1;

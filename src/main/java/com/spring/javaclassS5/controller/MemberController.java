@@ -29,7 +29,10 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.javaclassS5.common.JavaclassProvide;
+import com.spring.javaclassS5.service.AlcoholService;
 import com.spring.javaclassS5.service.MemberService;
+import com.spring.javaclassS5.service.TastingNoteService;
+import com.spring.javaclassS5.service.UserboardService;
 import com.spring.javaclassS5.vo.MemberVO;
 
 @Controller
@@ -41,6 +44,15 @@ public class MemberController {
 	
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
+	
+	@Autowired
+	AlcoholService alcoholService;
+	
+	@Autowired
+	TastingNoteService tastingNoteService;
+	
+	@Autowired
+	UserboardService userboardService;
 	
 	@Autowired
 	JavaMailSender mailSender;
@@ -241,8 +253,18 @@ public class MemberController {
 	
 	@RequestMapping(value = "/memberMain", method = RequestMethod.GET)
 	public String memberMainGet(HttpSession session, Model model) {
+		int userboardCnt = userboardService.getUserboardCount();
+		int alcoholCnt = alcoholService.getAlcoholCount();
+		int tastingNoteCnt = tastingNoteService.getTastingNoteCount();
+		
+		model.addAttribute("userboardCnt", userboardCnt);
+		model.addAttribute("alcoholCnt", alcoholCnt);
+		model.addAttribute("tastingNoteCnt", tastingNoteCnt);
+		
 		String mid = (String) session.getAttribute("sMid");
 		MemberVO mVo = memberService.getMemberIdCheck(mid);
+		
+		
 		model.addAttribute("mVo", mVo);
 		
 		return "member/memberMain";

@@ -44,5 +44,10 @@ public interface UserboardService {
 
 	public int setUserboardComplaintInput(int idx);
 
+	public List<UserboardVO> getComplaintList();
+
+	public int getUserboardCount();
+
+
 
 }

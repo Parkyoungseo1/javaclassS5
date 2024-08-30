@@ -111,7 +111,7 @@ public class AlcoholController {
 			@RequestParam(name="pag", defaultValue = "1", required = false) int pag,
 			@RequestParam(name="pageSize", defaultValue = "10", required = false) int pageSize,
 			@RequestParam(name="part", defaultValue = "ALL", required = false) String part) {
-		// 수정화면으로 이동할시에는 기존 원본파일의 그림파일이 존재한다면, 현재폴더(board)의 그림파일을 ckeditor폴더로 복사시켜준다.
+		// 수정화면으로 이동할시에는 기존 원본파일의 그림파일이 존재한다면, 현재폴더(alcohol)의 그림파일을 ckeditor폴더로 복사시켜준다.
 		AlcoholVO vo = alcoholService.getAlcoholContent(idx);
 		if(vo.getContent().indexOf("src=\"/") != -1) alcoholService.imgBackup(vo.getContent());
 		
@@ -179,17 +179,17 @@ public class AlcoholController {
 	
 	// 게시글 검색처리(검색기)
 	@RequestMapping(value = "/alcoholSearch")
-	public String boardSearchGet(Model model, String search,
+	public String alcoholSearchGet(Model model, String search,
 			@RequestParam(name="searchString", defaultValue = "", required = false) String searchString,
 			@RequestParam(name="pag", defaultValue = "1", required = false) int pag,
 			@RequestParam(name="pageSize", defaultValue = "10", required = false) int pageSize) {
-		PageVO pageVO = pageProcess.totRecCnt(pag, pageSize, "board", search, searchString);
+		PageVO pageVO = pageProcess.totRecCnt(pag, pageSize, "alcohol", search, searchString);
 		
 		List<AlcoholVO> vos = alcoholService.getAlcoholSearchList(pageVO.getStartIndexNo(), pageSize, search, searchString);
 
 		String searchTitle = "";
 		if(pageVO.getSearh().equals("title")) searchTitle = "글제목";
-		else if(pageVO.getSearh().equals("nickName")) searchTitle = "글쓴이";
+		else if(pageVO.getSearh().equals("part")) searchTitle = "종류";
 		else searchTitle = "글내용";
 		
 		model.addAttribute("vos", vos);

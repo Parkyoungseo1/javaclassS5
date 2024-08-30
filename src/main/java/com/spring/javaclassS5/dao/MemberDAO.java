@@ -30,4 +30,8 @@ public interface MemberDAO {
 
 	public void setKakaoMemberInput(@Param("mid") String mid, @Param("pwd") String pwd, @Param("nickName") String nickName, @Param("email") String email);
 
+	public int getNewMemberCnt();
+
+	public int getUserNoCnt();
+
 }

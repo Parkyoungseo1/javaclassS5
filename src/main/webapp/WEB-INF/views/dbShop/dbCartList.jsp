@@ -5,6 +5,8 @@
 <c:set var="ctp" value="${pageContext.request.contextPath }" />
 <html>
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>dbCartList.jsp(장바구니)</title>
   <jsp:include page="/WEB-INF/views/include/bs4.jsp"/>
   <script>
@@ -124,111 +126,198 @@
   </script>
   
   <style>
-    .totSubBox {
-      background-color:#ddd;
-      border : none;
-      width : 95px;
-      text-align : center;
-      font-weight: bold;
-      padding : 5 0px;
-      color : brown;
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
     }
-    td { padding : 5px; }
+    .container {
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      padding: 20px;
+      margin-top: 20px;
+    }
+    h2 {
+      color: #2c3e50;
+      margin-bottom: 30px;
+    }
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0 15px;
+    }
+    .table-dark {
+      background-color: #34495e;
+      color: #ecf0f1;
+    }
+    .table-dark th {
+      padding: 15px;
+      font-size: 16px;
+    }
+    td {
+      background-color: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      padding: 15px !important;
+    }
+    .product-img {
+      max-width: 120px;
+      border-radius: 4px;
+    }
+    .product-name {
+      color: #e67e22;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    .product-name:hover {
+      text-decoration: underline;
+    }
+    .price {
+      font-size: 18px;
+      color: #2980b9;
+    }
+    .btn-danger {
+      background-color: #e74c3c;
+      border: none;
+    }
+    .btn-danger:hover {
+      background-color: #c0392b;
+    }
+    .totSubBox {
+      background-color: #fff;
+      border: 1px solid #bdc3c7;
+      border-radius: 4px;
+      width: 120px;
+      text-align: center;
+      font-weight: bold;
+      padding: 10px 0;
+      color: #2c3e50;
+      font-size: 16px;
+    }
+    .order-summary {
+      background-color: #34495e;
+      color: #ecf0f1;
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 30px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .order-summary table {
+      margin: auto;
+    }
+    .order-summary th {
+      padding: 10px;
+      font-size: 18px;
+      color: #ffffff;
+      background-color: #2c3e50;
+      border-radius: 4px;
+    }
+    .order-summary td {
+      vertical-align: middle;
+      font-size: 16px;
+      color: #ecf0f1;
+      padding: 10px;
+    }
+    .btn-primary, .btn-info {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 10px;
+    }
   </style>
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/include/nav.jsp"/>
-<p><br/></p>
-<div class="container">
+<div class="container" style="margin-left: 420px;">
   <h2 class="text-center">장바구니</h2>
-	<br/>
-	<form name="myform" method="post">
-		<table class="table-bordered text-center" style="margin: auto; width:90%">
-		  <tr class="table-dark text-dark">
-		    <th><input type="checkbox" id="allcheck" onClick="allCheck()" class="m-2"/></th>
-		    <th colspan="2">상품</th>
-		    <th colspan="2">총상품금액</th>
-		  </tr>
-		    
-		  <!-- 장바구니 목록출력 -->
-		  <c:forEach var="listVO" items="${cartListVOS}">
-		    <tr align="center">
-		      <td><input type="checkbox" name="idxChecked" id="idx${listVO.idx}" value="${listVO.idx}" onClick="onCheck()" /></td>
-		      <td><a href="${ctp}/dbShop/dbProductContent?idx=${listVO.productIdx}"><img src="${ctp}/product/${listVO.thumbImg}" width="150px"/></a></td>
-		      <td align="left">
-		        <p class="contFont"><br/>
-		          모델명 : <span style="color:orange;font-weight:bold;"><a href="${ctp}/dbShop/dbProductContent?idx=${listVO.productIdx}">${listVO.productName}</a></span><br/>
-		          <span class="container pl-5 ml-4"><b><fmt:formatNumber value="${listVO.mainPrice}"/>원</b></span>
-		        </p><br/>
-		        <c:set var="optionNames" value="${fn:split(listVO.optionName,',')}"/>
-		        <c:set var="optionPrices" value="${fn:split(listVO.optionPrice,',')}"/>
-		        <c:set var="optionNums" value="${fn:split(listVO.optionNum,',')}"/>
-		        <p style="font-size:12px">
-		          - 주문 내역
-		          <c:if test="${fn:length(optionNames) > 1}">(기타품목 ${fn:length(optionNames)-1}개 포함)</c:if><br/>
-		          <c:forEach var="i" begin="0" end="${fn:length(optionNames)-1}">
-		            &nbsp;&nbsp;ㆍ${optionNames[i]} / <fmt:formatNumber value="${optionPrices[i]}"/>원 / ${optionNums[i]}개<br/>
-		          </c:forEach> 
-		        </p>
-		      </td>
-		      <td>
-		        <div class="text-center">
-			        <b>총 : <fmt:formatNumber value="${listVO.totalPrice}" pattern='#,###원'/></b><br/><br/>
-			        <span style="color:#270;font-size:12px" class="buyFont">주문일자 : ${fn:substring(listVO.cartDate,0,10)}</span>
-			        <input type="hidden" id="totalPrice${listVO.idx}" value="${listVO.totalPrice}"/>
-		        </div>
-		      </td>
-		      <td>
-		        <button type="button" onClick="cartDelete(${listVO.idx})" class="btn btn-danger btn-sm m-1" style="border:0px;">구매취소</button>
-		        <input type="hidden" name="checkItem" value="0" id="checkItem${listVO.idx}"/>	<!-- 구매체크가 되지 않은 품목은 '0'으로, 체크된것은 '1'로 처리하고자 한다. -->
-		        <input type="hidden" name="idx" value="${listVO.idx }"/>
-		        <input type="hidden" name="thumbImg" value="${listVO.thumbImg}"/>
-		        <input type="hidden" name="productName" value="${listVO.productName}"/>
-		        <input type="hidden" name="mainPrice" value="${listVO.mainPrice}"/>
-		        <input type="hidden" name="optionName" value="${optionNames}"/>
-		        <input type="hidden" name="optionPrice" value="${optionPrices}"/>
-		        <input type="hidden" name="optionNum" value="${optionNums}"/>
-		        <input type="hidden" name="totalPrice" value="${listVO.totalPrice}"/>
-		        <input type="hidden" name="mid" value="${sMid}"/>
-		      </td>
-		    </tr>
-		  </c:forEach>
-		</table>
-	  <c:set var="minIdx" value="${cartListVOS[0].idx}"/>						<!-- 구매한 첫번째 상품의 idx -->
-	  <c:set var="maxSize" value="${fn:length(cartListVOS)-1}"/>		
-	  <c:set var="maxIdx" value="${cartListVOS[maxSize].idx}"/>			<!-- 구매한 마지막 상품의 idx -->
-	  <input type="hidden" id="minIdx" name="minIdx" value="${minIdx}"/>
-	  <input type="hidden" id="maxIdx" name="maxIdx" value="${maxIdx}"/>
-	  <input type="hidden" name="orderTotalPrice" id="orderTotalPrice"/>
+  <form name="myform" method="post">
+    <table>
+      <tr class="table-dark">
+        <th><input type="checkbox" id="allcheck" onClick="allCheck()" class="m-2"/></th>
+        <th colspan="2">상품</th>
+        <th colspan="2">총상품금액</th>
+      </tr>
+      
+      <!-- 장바구니 목록출력 -->
+      <c:forEach var="listVO" items="${cartListVOS}">
+        <tr>
+          <td><input type="checkbox" name="idxChecked" id="idx${listVO.idx}" value="${listVO.idx}" onClick="onCheck()" /></td>
+          <td><a href="${ctp}/dbShop/dbProductContent?idx=${listVO.productIdx}"><img src="${ctp}/product/${listVO.thumbImg}" class="product-img"/></a></td>
+          <td>
+            <p>
+              모델명 : <a href="${ctp}/dbShop/dbProductContent?idx=${listVO.productIdx}" class="product-name">${listVO.productName}</a><br/>
+              <span class="price"><fmt:formatNumber value="${listVO.mainPrice}"/>원</span>
+            </p>
+            <c:set var="optionNames" value="${fn:split(listVO.optionName,',')}"/>
+            <c:set var="optionPrices" value="${fn:split(listVO.optionPrice,',')}"/>
+            <c:set var="optionNums" value="${fn:split(listVO.optionNum,',')}"/>
+            <p>
+              - 주문 내역
+              <c:if test="${fn:length(optionNames) > 1}">(기타품목 ${fn:length(optionNames)-1}개 포함)</c:if><br/>
+              <c:forEach var="i" begin="0" end="${fn:length(optionNames)-1}">
+                ㆍ${optionNames[i]} / <fmt:formatNumber value="${optionPrices[i]}"/>원 / ${optionNums[i]}개<br/>
+              </c:forEach> 
+            </p>
+          </td>
+          <td>
+            <div class="text-center">
+              <b>총 : <fmt:formatNumber value="${listVO.totalPrice}" pattern='#,###원'/></b><br/>
+              <span style="color:#270;font-size:12px">주문일자 : ${fn:substring(listVO.cartDate,0,10)}</span>
+              <input type="hidden" id="totalPrice${listVO.idx}" value="${listVO.totalPrice}"/>
+            </div>
+          </td>
+          <td>
+            <button type="button" onClick="cartDelete(${listVO.idx})" class="btn btn-danger btn-sm">구매취소</button>
+            <input type="hidden" name="checkItem" value="0" id="checkItem${listVO.idx}"/>
+            <input type="hidden" name="idx" value="${listVO.idx }"/>
+            <input type="hidden" name="thumbImg" value="${listVO.thumbImg}"/>
+            <input type="hidden" name="productName" value="${listVO.productName}"/>
+            <input type="hidden" name="mainPrice" value="${listVO.mainPrice}"/>
+            <input type="hidden" name="optionName" value="${optionNames}"/>
+            <input type="hidden" name="optionPrice" value="${optionPrices}"/>
+            <input type="hidden" name="optionNum" value="${optionNums}"/>
+            <input type="hidden" name="totalPrice" value="${listVO.totalPrice}"/>
+            <input type="hidden" name="mid" value="${sMid}"/>
+          </td>
+        </tr>
+      </c:forEach>
+    </table>
+    <c:set var="minIdx" value="${cartListVOS[0].idx}"/>
+    <c:set var="maxSize" value="${fn:length(cartListVOS)-1}"/>		
+    <c:set var="maxIdx" value="${cartListVOS[maxSize].idx}"/>
+    <input type="hidden" id="minIdx" name="minIdx" value="${minIdx}"/>
+    <input type="hidden" id="maxIdx" name="maxIdx" value="${maxIdx}"/>
+    <input type="hidden" name="orderTotalPrice" id="orderTotalPrice"/>
     <input type="hidden" name="baesong"/>
-	</form>
-  <p class="text-center">
-    <b>실제 주문총금액</b>(구매하실 상품에 체크해 주세요. 총주문금액이 산출됩니다.)<br/>
-    5만원 이상 구매하시면 배송비가 면제됩니다.
-  </p>
-	<table class="table-borderless text-center" style="margin:auto">
-	  <tr>
-	    <th>구매상품금액</th>
-	    <th></th>
-	    <th>배송비</th>
-	    <th></th>
-	    <th>총주문금액</th>
-	  </tr>
-	  <tr>
-	    <td><input type="text" id="total" value="0" class="totSubBox" readonly/></td>
-	    <td>+</td>
-	    <td><input type="text" id="baesong" value="0" class="totSubBox" readonly/></td>
-	    <td>=</td>
-	    <td><input type="text" id="lastPrice" value="0" class="totSubBox" readonly/></td>
-	  </tr>
-	</table>
-	<br/>
-	<div class="text-center">
-	  <button class="btn btn-primary" onClick="order()">주문하기</button> &nbsp;
-	  <button class="btn btn-info" onClick="location.href='${ctp}/dbShop/dbProductList';">계속 쇼핑하기</button>
-	</div>
+  </form>
+  <div class="order-summary">
+    <p class="text-center">
+      <b>실제 주문총금액</b><br/>
+      (구매하실 상품에 체크해 주세요. 총주문금액이 산출됩니다.)<br/>
+      5만원 이상 구매하시면 배송비가 면제됩니다.
+    </p>
+    <table>
+      <tr>
+        <th>구매상품금액</th>
+        <th></th>
+        <th>배송비</th>
+        <th></th>
+        <th>총주문금액</th>
+      </tr>
+      <tr>
+        <td><input type="text" id="total" value="0" class="totSubBox" readonly/></td>
+        <td>+</td>
+        <td><input type="text" id="baesong" value="0" class="totSubBox" readonly/></td>
+        <td>=</td>
+        <td><input type="text" id="lastPrice" value="0" class="totSubBox" readonly/></td>
+      </tr>
+    </table>
+  </div>
+  <div class="text-center mt-4">
+    <button class="btn btn-primary" onClick="order()">주문하기</button>
+    <button class="btn btn-info" onClick="location.href='${ctp}/dbShop/dbProductList';">계속 쇼핑하기</button>
+  </div>
 </div>
-<p><br/></p>
 <jsp:include page="/WEB-INF/views/include/footer.jsp"/>
 </body>
 </html>

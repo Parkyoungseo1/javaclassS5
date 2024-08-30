@@ -46,8 +46,6 @@ public interface DbShopService {
 
 	public List<DbProductVO> getDbShopList(String part, String mainPrice);
 
-	public List<DbProductVO> getCategorySubName(String categoryMainCode, String categoryMiddleCode);
-
 	public DbProductVO getDbShopProduct(int idx);
 
 	public List<DbOptionVO> getDbShopOption(int idx);
@@ -56,7 +54,7 @@ public interface DbShopService {
 
 	public List<DbOptionVO> getOptionList(int productIdx);
 
-	public List<DbProductVO> getCategoryProductNameAjax(String categoryMainCode, String categoryMiddleCode,	String categorySubCode);
+	public List<DbProductVO> getCategoryProductNameAjax(String categoryMainCode);
 
 	public int getOptionSame(int productIdx, String optionName);
 

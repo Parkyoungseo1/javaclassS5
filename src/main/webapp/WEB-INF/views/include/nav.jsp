@@ -92,11 +92,20 @@
 	      x.className = x.className.replace(" w3-show", "");
 	    }
 	  }
+		// Accordion 
+	  function myAccFunc4() {
+	    var x = document.getElementById("demoAcc4");
+	    if (x.className.indexOf("w3-show") == -1) {
+	      x.className += " w3-show";
+	    } else {
+	      x.className = x.className.replace(" w3-show", "");
+	    }
+	  }
 
 </script>
 <!-- Sidebar/menu -->
-<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
-  <div class="w3-container">
+<nav class="w3-sidebar w3-collapse  w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
+  <div class="w3-container" >
     <a href="#" onclick="w3_close()" class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-grey" title="close menu">
       <i class="fa fa-remove"></i>
     </a>
@@ -124,6 +133,7 @@
     <a href="${ctp}/" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-text-teal"><i class="fa fa-th-large fa-fw w3-margin-right"></i>Main</a> 
     <a href="${ctp}/member/memberMain" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-fw w3-margin-right"></i>MEMBER</a>
     <a href="${ctp}/member/memberUpdate" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-fw w3-margin-right"></i>정보수정</a>
+    <a href="${ctp}/member/memberPwdCheck" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-fw w3-margin-right"></i>비밀번호변경</a>
     <a onclick="myAccFunc()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align" id="myBtn">
       <i class="fa-solid fa-whiskey-glass"></i> Alcohol <i class="fa-solid fa-caret-down"></i>
     </a>
@@ -144,25 +154,28 @@
     </a>
     <div id="demoAcc1" class="w3-bar-block w3-hide w3-padding-large w3-medium">
       <a href="${ctp}/userboard/userboardList" class="w3-bar-item w3-button w3-light-grey"><i class="fa fa-caret-right w3-margin-right"></i>Recipe&자유게시판</a>
-      <a href="#" class="w3-bar-item w3-button">양주</a>
-      <a href="#" class="w3-bar-item w3-button">위스키</a>
-      <a href="#" class="w3-bar-item w3-button">와인</a>
-      <a href="#" class="w3-bar-item w3-button">막걸리</a> 
-      <a href="#" class="w3-bar-item w3-button">하이볼</a> 
-      <a href="#" class="w3-bar-item w3-button">칵테일</a> 
+      <a href="${ctp}/userboard/userboardList?part=Whiskey" class="w3-bar-item w3-button">Whiskey</a>
+      <a href="${ctp}/userboard/userboardList?part=Liqueur" class="w3-bar-item w3-button">Liqueur</a>
+      <a href="${ctp}/userboard/userboardList?part=Wine" class="w3-bar-item w3-button">자유게시판</a>
+      <a href="${ctp}/userboard/userboardList?part=Makgeolli" class="w3-bar-item w3-button">Makgeolli</a> 
+      <a href="${ctp}/userboard/userboardList?part=Highball" class="w3-bar-item w3-button">Highball</a> 
+      <a href="${ctp}/userboard/userboardList?part=Cocktail" class="w3-bar-item w3-button">Cocktail</a> 
+      <a href="${ctp}/userboard/userboardList?part=etc" class="w3-bar-item w3-button">etc</a>
   	</div>
   </div>
   <div class="w3-bar-block">
-    <a onclick="myAccFunc3()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align" id="myBtn">
-       <i class="fas fa-shopping-cart"></i> Tasting Note <i class="fas fa-caret-down"></i>
+    <a onclick="myAccFunc4()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align" id="myBtn">
+       <i class="fa-solid fa-book-open-reader"></i> Tasting Note <i class="fas fa-caret-down"></i>
     </a>
-    <div id="demoAcc3" class="w3-bar-block w3-hide w3-padding-large w3-medium">
-      <a href="${ctp}/flavor/flavorList" class="w3-bar-item w3-button w3-light-grey"><i class="fa fa-caret-right w3-margin-right"></i>ALL</a>
-      <a href="#" class="w3-bar-item w3-button">장바구니</a>
-      <a href="#" class="w3-bar-item w3-button">주문(배송)현황</a>
-      <a href="#" class="w3-bar-item w3-button">결제연습</a>
-      <a href="#" class="w3-bar-item w3-button">QnA</a> 
-      <a href="#" class="w3-bar-item w3-button">1대1문의</a> 
+    <div id="demoAcc4" class="w3-bar-block w3-hide w3-padding-large w3-medium">
+      <a href="${ctp}/tastingNote/tastingNoteList" class="w3-bar-item w3-button w3-light-grey"><i class="fa fa-caret-right w3-margin-right"></i>ALL</a>
+      <a href="${ctp}/tastingNote/tastingNoteList?part=Whiskey" class="w3-bar-item w3-button">Whiskey</a>
+      <a href="${ctp}/tastingNote/tastingNoteList?part=Liqueur" class="w3-bar-item w3-button">Liqueur</a>
+      <a href="${ctp}/tastingNote/tastingNoteList?part=Wine" class="w3-bar-item w3-button">Wine</a>
+      <a href="${ctp}/tastingNote/tastingNoteList?part=Makgeolli" class="w3-bar-item w3-button">Makgeolli</a> 
+      <a href="${ctp}/tastingNote/tastingNoteList?part=Highball" class="w3-bar-item w3-button">Highball</a> 
+      <a href="${ctp}/tastingNote/tastingNoteList?part=Cocktail" class="w3-bar-item w3-button">Cocktail</a> 
+      <a href="${ctp}/tastingNote/tastingNoteList?part=etc" class="w3-bar-item w3-button">etc</a>
   	</div>
   </div>
   <div class="w3-bar-block">
@@ -170,15 +183,25 @@
        <i class="fas fa-shopping-cart"></i> Shopping Mall <i class="fas fa-caret-down"></i>
     </a>
     <div id="demoAcc2" class="w3-bar-block w3-hide w3-padding-large w3-medium">
-      <a href="${ctp}/product/productList" class="w3-bar-item w3-button w3-light-grey"><i class="fa fa-caret-right w3-margin-right"></i>상품리스트</a>
-      <a href="#" class="w3-bar-item w3-button">장바구니</a>
-      <a href="#" class="w3-bar-item w3-button">주문(배송)현황</a>
-      <a href="#" class="w3-bar-item w3-button">결제연습</a>
-      <a href="#" class="w3-bar-item w3-button">QnA</a> 
-      <a href="#" class="w3-bar-item w3-button">1대1문의</a> 
+      <a href="${ctp}/dbShop/dbProductList" class="w3-bar-item w3-button w3-light-grey"><i class="fa fa-caret-right w3-margin-right"></i>상품리스트</a>
+      <a href="${ctp}/dbShop/dbCartList" class="w3-bar-item w3-button">장바구니</a>
+      <a href="${ctp}/dbShop/dbProductContent" class="w3-bar-item w3-button">상품정보 상세보기</a>
+      <a href="${ctp}/dbShop/dbOrder" class="w3-bar-item w3-button">주문정보</a>
+      <a href="${ctp}/dbShop/dbOrderBaesong" class="w3-bar-item w3-button">주문(배송)현황</a>
+      <a href="${ctp}/dbShop/dbList" class="w3-bar-item w3-button">결제연습</a>
+      <a href="${ctp}/dbShop/dbList" class="w3-bar-item w3-button">QnA</a> 
+      <a href="${ctp}/dbShop/dbList" class="w3-bar-item w3-button">1대1문의</a> 
   	</div>
   </div>
-    <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-envelope fa-fw w3-margin-right"></i>공지사항</a>
+  <div class="w3-bar-block">
+    <a onclick="myAccFunc3()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align" id="myBtn">
+       <i class="fa fa-envelope fa-fw w3-margin-right"></i> 문의사항 <i class="fas fa-caret-down"></i>
+    </a>
+    <div id="demoAcc3" class="w3-bar-block w3-hide w3-padding-large w3-medium">
+      <a href="${ctp}/qna/qnaList" class="w3-bar-item w3-button">QnA</a> 
+      <a href="${ctp}/webSocket/endPoint" class="w3-bar-item w3-button">1대1문의</a> 
+  	</div>
+  </div>
   <div class="w3-panel w3-large">
     <i class="fa fa-facebook-official w3-hover-opacity"></i>
     <i class="fa fa-instagram w3-hover-opacity"></i>

@@ -138,9 +138,9 @@
       활동내역
     </div>
     <div class="card-body">
-      <p>방명록에 올린글수 : <b>${guestCnt}</b> 건</p>
-      <p>게사판에 올린글수 : <b>${boardCnt}</b> 건</p>
-      <p>자료실에 올린글수 : <b>${pdsCnt}</b> 건</p>
+      <p>알코올에 올린글수 : <b>${alcoholCnt}</b> 건</p>
+      <p>유저보드에 올린글수 : <b>${userboardCnt}</b> 건</p>
+      <p>테이스팅노트에 올린글수 : <b>${tastingNoteCnt}</b> 건</p>
     </div>
   </div>
 

@@ -31,11 +31,11 @@
       <select name="part" id="part" class="form-control">
         <option>ALL</option>
         <option ${part=="Highball" ? "selected" : ""}>Highball</option>
-        <option ${part=="자유게시판" ? "selected" : ""}>자유게시판</option>
         <option ${part=="Makgeolli" ? "selected" : ""}>Makgeolli</option>
-        <option ${part=="Highball" ? "selected" : ""}>Highball</option>
         <option ${part=="Cocktail" ? "selected" : ""}>Cocktail</option>
         <option ${part=="etc" ? "selected" : ""}>etc</option>
+        <option ${part=="Whiskey" ? "selected" : ""}>Whiskey</option>
+        <option ${part=="자유게시판" ? "selected" : ""}>자유게시판</option>        
       </select>
    		</div>
       <tr>

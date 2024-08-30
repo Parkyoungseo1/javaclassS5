@@ -13,7 +13,6 @@ import java.util.Locale;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,15 +21,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.spring.javaclassS5.service.MemberService;
-import com.spring.javaclassS5.vo.MemberVO;
+import com.spring.javaclassS5.service.HomeService;
+import com.spring.javaclassS5.vo.WebChattingVO;
 
 @Controller
 public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	
+	@Autowired
+	HomeService homeService;
+	
 	@RequestMapping(value = {"/", "h" },method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
@@ -97,5 +101,24 @@ public class HomeController {
 		// 다운로드 완료후에 서버에 저장된 zip파일을 삭제처리한다.
 		downFile.delete();
 	}
+	
+	// 채팅창 띄우기
+		@RequestMapping(value = "/webSocket/webSocket", method = RequestMethod.GET)
+		public String webSocketGet() {
+	    return "webSocket/webSocket";
+		}
+		
+		// 채팅메세지 DB에 저장하기
+		@ResponseBody
+		@RequestMapping(value = "/webSocket/msgInput", method = RequestMethod.POST)
+		public String msgInputPost(WebChattingVO vo) {
+			return homeService.setMsgInput(vo) + "";
+		}
+		
+		// 1대1 채팅폼
+		@RequestMapping(value = "/webSocket/endPoint", method = RequestMethod.GET)
+		public String endPointGet() {
+			return "webSocket/endPoint";
+		}
 	
 }

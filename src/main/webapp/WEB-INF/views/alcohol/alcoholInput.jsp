@@ -84,7 +84,7 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/include/nav.jsp" />
-<div class="container">
+<div class="container" style="margin-left: 350px;">
   <h2 class="text-center">Add New Product</h2>
   <form name="myform" method="post" enctype="multipart/form-data">
     <div class="form-group">

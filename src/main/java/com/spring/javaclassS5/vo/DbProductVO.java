@@ -13,8 +13,4 @@ public class DbProductVO {
 	private String content;
 	private String categoryMainCode;
 	private String categoryMainName;
-	private String categoryMiddleCode;
-	private String categoryMiddleName;
-	private String categorySubCode;
-	private String categorySubName;
 }

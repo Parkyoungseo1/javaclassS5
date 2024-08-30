@@ -94,5 +94,15 @@ public class MemberServiceImpl implements MemberService {
 	public void setKakaoMemberInput(String mid, String pwd, String nickName, String email) {
 		memberDAO.setKakaoMemberInput(mid, pwd, nickName, email);
 	}
+
+	@Override
+	public int getNewMemberCnt() {
+		return memberDAO.getNewMemberCnt();
+	}
+
+	@Override
+	public int getUserNoCnt() {
+		return memberDAO.getUserNoCnt();
+	}
 	
 }

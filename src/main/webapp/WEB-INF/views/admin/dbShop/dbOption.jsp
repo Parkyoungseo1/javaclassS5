@@ -67,79 +67,6 @@
     	}
     }
     
-    // 상품 입력창에서 대분류 선택(Change)시 중분류가져와서 중분류 선택박스에 뿌리기
-    function categoryMainChange() {
-    	var categoryMainCode = myform.categoryMainCode.value;
-			$.ajax({
-				type : "post",
-				url  : "${ctp}/dbShop/categoryMiddleName",
-				data : {categoryMainCode : categoryMainCode},
-				success:function(data) {
-					var str = "";
-					str += "<option value=''>중분류</option>";
-					for(var i=0; i<data.length; i++) {
-						str += "<option value='"+data[i].categoryMiddleCode+"'>"+data[i].categoryMiddleName+"</option>";
-					}
-					$("#categoryMiddleCode").html(str);
-				},
-				error : function() {
-					alert("전송오류!");
-				}
-			});
-  	}
-    
-    // 상품 입력창에서 중분류 선택(Change)시 소분류가져와서 소분류 선택박스에 뿌리기
-    function categoryMiddleChange() {
-    	var categoryMainCode = myform.categoryMainCode.value;
-    	var categoryMiddleCode = myform.categoryMiddleCode.value;
-			$.ajax({
-				type : "post",
-				url  : "${ctp}/dbShop/categorySubName",
-				data : {
-					categoryMainCode : categoryMainCode,
-					categoryMiddleCode : categoryMiddleCode
-				},
-				success:function(data) {
-					var str = "";
-					str += "<option value=''>소분류</option>";
-					for(var i=0; i<data.length; i++) {
-						str += "<option value='"+data[i].categorySubCode+"'>"+data[i].categorySubName+"</option>";
-					}
-					$("#categorySubCode").html(str);
-				},
-				error : function() {
-					alert("전송오류!");
-				}
-			});
-  	}    
-    
-    // 상품 입력창에서 소분류 선택(Change)시 해당 상품들을 가져와서 품목 선택박스에 뿌리기
-    function categorySubChange() {
-    	var categoryMainCode = myform.categoryMainCode.value;
-    	var categoryMiddleCode = myform.categoryMiddleCode.value;
-    	var categorySubCode = myform.categorySubCode.value;
-			$.ajax({
-				type : "post",
-				url  : "${ctp}/dbShop/categoryProductName",
-				data : {
-					categoryMainCode : categoryMainCode,
-					categoryMiddleCode : categoryMiddleCode,
-					categorySubCode : categorySubCode
-				},
-				success:function(data) {
-					var str = "";
-					str += "<option value=''>상품선택</option>";
-					for(var i=0; i<data.length; i++) {
-						str += "<option value='"+data[i].productName+"'>"+data[i].productName+"</option>";
-					}
-					$("#productName").html(str);
-				},
-				error : function() {
-					alert("전송오류!");
-				}
-			});
-  	}
-    
     // 상품리스트 상세보기에서 옵션등록 버튼클릭시 수행하는 부분....
     <c:if test="${!empty productVO}">productNameCheck('${productVO.productName}')</c:if>
     
@@ -156,8 +83,6 @@
     			str += '<table class="table table-bordered">';
     			str += '<tr><th>대분류명</th><td>'+vo.categoryMainName+'</td>';
     			str += '<td rowspan="6" class="text-center"><img src="${ctp}/product/'+vo.fsname+'" width="160px"/></td></tr>';
-    			str += '<tr><th>중분류명</th><td>'+vo.categoryMiddleName+'</td></tr>';
-    			str += '<tr><th>소분류명</th><td>'+vo.categorySubName+'</td></tr>';
     			str += '<tr><th>상 품 명</th><td>'+vo.productName+'</td></tr>';
     			str += '<tr><th>상품제목</th><td>'+vo.detail+'</td></tr>';
     			str += '<tr><th>상품가격</th><td>'+numberWithCommas(vo.mainPrice)+'원</td></tr>';
@@ -244,20 +169,6 @@
         	<option value="${mainVo.categoryMainCode}">${mainVo.categoryMainName}</option>
         </c:forEach>
         <c:if test="${!empty productVO}"><option value="${productVO.categoryMainCode}" selected>${productVO.categoryMainName}</option></c:if>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="categoryMiddleCode">중분류</label>
-      <select id="categoryMiddleCode" name="categoryMiddleCode" class="form-control" onchange="categoryMiddleChange()">
-        <option value="">중분류명</option>
-        <c:if test="${!empty productVO}"><option value="${productVO.categoryMiddleCode}" selected>${productVO.categoryMiddleName}</option></c:if>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="categorySubCode">소분류</label>
-      <select id="categorySubCode" name="categorySubCode" class="form-control" onchange="categorySubChange()">
-        <option value="">소분류명</option>
-        <c:if test="${!empty productVO}"><option value="${productVO.categorySubCode}" selected>${productVO.categorySubName}</option></c:if>
       </select>
     </div>
     <div class="form-group">

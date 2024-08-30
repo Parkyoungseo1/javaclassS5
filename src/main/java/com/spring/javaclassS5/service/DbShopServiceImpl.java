@@ -122,8 +122,8 @@ public class DbShopServiceImpl implements DbShopService {
     // ckeditor에서 올린 이미지파일을 'ckeditor'에서 'dbShop/product'폴더로 복사한다.
     //             0         1         2         3         4         5
     //             012345678901234567890123456789012345678901234567890
-    // <img alt="" src="/javaclassS/data/ckeditor/211229124318_4.jpg"
-    // <img alt="" src="/javaclassS/data/dbShop/product/211229124318_4.jpg"
+    // <img alt="" src="/javaclassS/resources/data/ckeditor/211229124318_4.jpg"
+    // <img alt="" src="/javaclassS5/resources/data/dbShop/product/240731171933_AGWA LIQUEUR.jpg"
 
     // ckeditor을 이용해서 담은 상품의 상세설명내역에 그림이 포함되어 있으면 그림을 'ckeditor'폴더에서 'dbShop/product'폴더로 복사작업처리 시켜준다.
     String content = vo.getContent();
@@ -132,7 +132,7 @@ public class DbShopServiceImpl implements DbShopService {
     HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();
     String uploadPath = request.getSession().getServletContext().getRealPath("/resources/data/");
 
-    int position = 31;
+    int position = 41;
     String nextImg = content.substring(content.indexOf("src=\"/") + position);
     boolean sw = true;
 
@@ -157,7 +157,7 @@ public class DbShopServiceImpl implements DbShopService {
     if(maxVo != null) maxIdx = maxVo.getIdx() + 1;
     
     vo.setIdx(maxIdx);
-    vo.setProductCode(vo.getCategoryMainCode()+vo.getCategoryMiddleCode()+vo.getCategorySubCode()+maxIdx);	// 상품코드 만들기
+    vo.setProductCode(vo.getCategoryMainCode()+maxIdx);	// 상품코드 만들기
     res = dbShopDAO.setDbProductInput(vo);	// vo안의 내용물을 모두 채운후 DB에 저장시킨다.
     return res;
 	}
@@ -170,11 +170,6 @@ public class DbShopServiceImpl implements DbShopService {
 	@Override
 	public List<DbProductVO> getDbShopList(String part, String mainPrice) {
 		return dbShopDAO.getDbShopList(part, mainPrice);
-	}
-
-	@Override
-	public List<DbProductVO> getCategorySubName(String categoryMainCode, String categoryMiddleCode) {
-		return dbShopDAO.getCategorySubName(categoryMainCode, categoryMiddleCode);
 	}
 
 	@Override
@@ -198,8 +193,8 @@ public class DbShopServiceImpl implements DbShopService {
 	}
 
 	@Override
-	public List<DbProductVO> getCategoryProductNameAjax(String categoryMainCode, String categoryMiddleCode,	String categorySubCode) {
-		return dbShopDAO.getCategoryProductNameAjax(categoryMainCode, categoryMiddleCode,	categorySubCode);
+	public List<DbProductVO> getCategoryProductNameAjax(String categoryMainCode) {
+		return dbShopDAO.getCategoryProductNameAjax(categoryMainCode);
 	}
 
 	@Override

@@ -35,4 +35,6 @@ public interface AlcoholService {
 
 	public String setThumbnailCreate(MultipartFile file);
 
+	public int getAlcoholCount();
+
 }

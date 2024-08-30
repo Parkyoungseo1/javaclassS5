@@ -26,8 +26,9 @@
 	<resources mapping="/ckeditor/**" location="/resources/ckeditor/" />
 	<resources mapping="/css/**" location="/resources/css/" />
 	<resources mapping="/thumbnail/**" location="/resources/data/thumbnail/" />
-	<resources mapping="/userboard/**" location="/resources/data/userboard" />
-	<resources mapping="/flavor/**" location="/resources/data/flavor" />
+	<resources mapping="/userboard/**" location="/resources/data/userboard/" />
+	<resources mapping="/tastingNote/**" location="/resources/data/tastingNote/" />
+	<resources mapping="/flavor/**" location="/resources/data/flavor/" />
 	<resources mapping="/product/**" location="/resources/data/dbShop/product/" />
 	
 

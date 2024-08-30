@@ -5,11 +5,14 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -66,7 +69,7 @@ public class AlcoholServiceImpl implements AlcoholService {
 		//                0         1         2         3         4
 		//                012345678901234567890123456789012345678901234
 		// <p><img alt="" src="/javaclassS5/resources/data/ckeditor/240626093722_5.jpg" style="height:433px; width:700px" /></p>
-		// <p><img alt="" src="/javaclassS5/resources/data/alcohol/240626093722_5.jpg" style="height:433px; width:700px" /></p>
+		// <p><img alt="" src="/javaclassS5/resources/data/alcohol/240712172140_X RATED LIQUEUR.jpg" style="height:433px; width:700px" /></p>
 		
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
 		String realPath = request.getSession().getServletContext().getRealPath("/resources/data/");
@@ -111,15 +114,15 @@ public class AlcoholServiceImpl implements AlcoholService {
 
 	@Override
 	public void imgBackup(String content) {
-		//                0         1         2         3
-		//                01234567890123456789012345678901234567890
-		// <p><img alt="" src="/javaclassS/data/alcohol/240626093722_5.jpg" style="height:433px; width:700px" /></p>
-		// <p><img alt="" src="/javaclassS/data/ckeditor/240626093722_5.jpg" style="height:433px; width:700px" /></p>
+		//                0         1         2         3         4
+		//                01234567890123456789012345678901234567890123456
+		// <p><img alt="" src="/javaclassS5/resources/data/alcohol/240712172140_X RATED LIQUEUR.jpg"" style="height:433px; width:700px" /></p>
+		// <p><img alt="" src="/javaclassS5/resources/data/ckeditor/240626093722_5.jpg" style="height:433px; width:700px" /></p>
 		
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
 		String realPath = request.getSession().getServletContext().getRealPath("/resources/data/");
 		
-		int position = 28;
+		int position = 41;
 		String nextImg = content.substring(content.indexOf("src=\"/") + position);
 		boolean sw = true;
 		
@@ -138,15 +141,15 @@ public class AlcoholServiceImpl implements AlcoholService {
 
 	@Override
 	public void imgDelete(String content) {
-		//                0         1         2         3
-		//                01234567890123456789012345678901234567890
-		// <p><img alt="" src="/javaclassS/data/alcohol/240626093722_5.jpg" style="height:433px; width:700px" /></p>
+		//                0         1         2         3         4
+		//                01234567890123456789012345678901234567890123456789
+		// <p><img alt="" src="/javaclassS5/resources/data/alcohol/240712172140_X RATED LIQUEUR.jpg" style="height:433px; width:700px" /></p>
 		// <p><img alt="" src="/javaclassS/data/ckeditor/240626093722_5.jpg" style="height:433px; width:700px" /></p>
 		
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
 		String realPath = request.getSession().getServletContext().getRealPath("/resources/data/");
 		
-		int position = 28;
+		int position = 41;
 		String nextImg = content.substring(content.indexOf("src=\"/") + position);
 		boolean sw = true;
 		
@@ -188,7 +191,9 @@ public class AlcoholServiceImpl implements AlcoholService {
 	public String setThumbnailCreate(MultipartFile file) {
 		String res = "";
 		try {
-			String sFileName = javaclassProvide.newNameCreate(2) + "_" + file.getOriginalFilename();
+			//System.out.println("ddd === " + file.getOriginalFilename());
+			//System.out.println("ccc :" + newNameCreate22(2));
+			String sFileName = newNameCreate22(2) + "_" + file.getOriginalFilename();
 			
 			// 썸네일 파일이 저장될 경로설정
 			HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
@@ -211,4 +216,20 @@ public class AlcoholServiceImpl implements AlcoholService {
 		
 		return res;
 	}
+	
+	public String newNameCreate22(int lenChar) {
+		System.out.println("333333");
+		Date today = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
+		String newName = sdf.format(today);
+		newName += RandomStringUtils.randomAlphanumeric(lenChar) + "_";
+		System.out.println("newN : " + newName);
+		return newName;
+	}
+
+	@Override
+	public int getAlcoholCount() {
+		return alcoholDAO.getAlcoholCount();
+	}
+	
 }

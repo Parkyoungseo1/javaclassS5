@@ -24,10 +24,21 @@
 		<if test="level != 99 and level != 999">select *, timestampdiff(day, lastDate, now()) as deleteDiff from member where level = #{level} order by mid limit #{startIndexNo},#{pageSize};</if>
 	</select>
 	
+	<select id="getComplaintList" resultType="com.spring.javaclassS5.vo.AdminVO">
+		select * from complaint <if test="part != '전체'" >where part = #{part} </if>;
+	</select>
+	
+	<select id="totRecCnt" resultType="int">
+		select count(*) from complaint <if test="part='전체'"> where part = #{part} </if>;
+	</select>
 	
 	
 	<update id="setMemberLevelCheck">
 		update member set level = #{level} where idx = #{idx};
+	</update>
+	
+	<update id="setUserComplaint">
+		update userboard set complaint = 'OK' where idx = #{idx};
 	</update>
 	
 	

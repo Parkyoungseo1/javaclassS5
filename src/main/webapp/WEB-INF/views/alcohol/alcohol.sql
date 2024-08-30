@@ -14,4 +14,6 @@ create table alcohol (
   foreign key(mid) references member(mid)
 );
 
+select count(*) from alcohol where part = 'Wine';
+
 desc alcohol;

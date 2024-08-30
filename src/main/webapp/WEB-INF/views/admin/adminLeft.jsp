@@ -102,6 +102,12 @@
     </div>
   </div>
   <div>
+    <button class="accordion"><i class="fa-solid fa-calendar-alt"></i> 신고리스트 </button>
+    <div class="panel">
+      <p><a href="${ctp}/admin/complaint/complaintList" target="adminContent">유저</a></p>
+    </div>
+  </div>
+  <div>
     <button class="accordion"><i class="fa-solid fa-cogs"></i> 기타관리</button>
     <div class="panel">
       <p><a href="${ctp}/admin/file/fileList" target="adminContent">파일관리</a></p>

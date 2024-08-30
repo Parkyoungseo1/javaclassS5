@@ -103,11 +103,22 @@ public class JavaclassProvide {
 	}
 
 	// 파일명에 지정된 자리수만큼 난수를 붙여서 새로운 파일명으로 만들어 반환하기
-	public String newNameCreate(int len) {
+	public String newNameCreate(int lenChar) {
+		System.out.println("333333");
 		Date today = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
 		String newName = sdf.format(today);
-		newName += RandomStringUtils.randomAlphanumeric(len) + "_";
+		newName += RandomStringUtils.randomAlphanumeric(lenChar) + "_";
+		System.out.println("newN : " + newName);
+		return newName;
+	}
+	public String newNameCreate22(int lenChar) {
+		System.out.println("333333");
+		Date today = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
+		String newName = sdf.format(today);
+		newName += RandomStringUtils.randomAlphanumeric(lenChar) + "_";
+		System.out.println("newN : " + newName);
 		return newName;
 	}
 	
@@ -135,5 +146,77 @@ public class JavaclassProvide {
       e.printStackTrace();
     }
   }
+  
+//1.공통으로 사용하는 ckeditor폴더(aFlag)에 임시그림파일 저장후 실제 저장할폴더(qna)로 복사하기(사용될 실제 파일이 저장될 경로를 bFlag에 받아온다.)
+ // 2.실제로 저장된 폴더(qna(aFlag))에서, 공통으로 사용하는 ckeditor폴더(bFlag)에 그림파일을 복사하기
+	public void imgCheck(String content, String aFlag, String bFlag) {
+		//      0         1         2     2   33        4         5         6
+		//      01234567890123456789012345678901234567890123456789012345678901234567890
+		// <img src="/javaclassS5/resources/data/ckeditor/240111121324_green2209J_06.jpg" style="height:967px; width:1337px" /></p>
+		// <img alt="" src="/javaclassS5/resources/data/qna/240805130241_maxresdefault.jpg" style="height:967px; width:1337px" /></p>
+   // content안에 그림파일이 존재할때만 작업을 수행 할수 있도록 한다.(src="/_____~~)
+		if(content.indexOf("src=\"/") == -1) return;
+		
+		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();
+		//String realPath = request.getSession().getServletContext().getRealPath("/resources/data/ckeditor/");
+		String realPath = request.getSession().getServletContext().getRealPath("/resources/data/");
+		
+		int position = 0;
+		if(aFlag.equals("ckeditor")) position = 42;
+		else if(aFlag.equals("qna")) position = 44;
+		String nextImg = content.substring(content.indexOf("src=\"/") + position);
+		boolean sw = true;
+		
+		while(sw) {
+			String imgFile = nextImg.substring(0, nextImg.indexOf("\""));
+			
+			String origFilePath = realPath + aFlag + "/" + imgFile;
+			String copyFilePath = realPath + bFlag + "/" + imgFile;
+			
+			fileCopyCheck(origFilePath, copyFilePath);  // __폴더에 파일을 복사하고자 한다.
+			
+			if(nextImg.indexOf("src=\"/") == -1) {
+				sw = false;
+			}
+			else {
+				nextImg = nextImg.substring(nextImg.indexOf("src=\"/") + position);
+			}
+		}
+	}
+	
+	// 지정된 경로 아래의 파일들을 반복해서 삭제처리한다.
+	public void imagesDelete(String content, String flag) {
+		//      0         1         2         3         4         5         6
+		//      01234567890123456789012345678901234567890123456789012345678901234567890
+		// <img alt="" src="/javaclassS5/resources/data/qna/240805130241_maxresdefault.jpg" style="height:967px; width:1337px" /></p>
+		// content안에 그림파일이 존재할때만 작업을 수행 할수 있도록 한다.(src="/_____~~)
+		if(content.indexOf("src=\"/") == -1) return;
+		
+		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();
+		String realPath = request.getSession().getServletContext().getRealPath("/resources/data/"+flag+"/");
+		
+		int position = 0;
+		if(flag.equals("qna")) position = 44;
+		
+		String nextImg = content.substring(content.indexOf("src=\"/") + position);
+		boolean sw = true;
+		
+		while(sw) {
+			String imgFile = nextImg.substring(0, nextImg.indexOf("\""));	// 그림파일명 꺼내오기
+			
+			String origFilePath = realPath + imgFile;
+			
+			// ____폴더에 파일을 삭제하고자 한다.
+			File delFile = new File(origFilePath);
+			if(delFile.exists()) delFile.delete();
+			
+			if(nextImg.indexOf("src=\"/") == -1) {
+				sw = false;
+			}
+			else {
+				nextImg = nextImg.substring(nextImg.indexOf("src=\"/") + position);
+			}
+		}
+	}
 	
 }

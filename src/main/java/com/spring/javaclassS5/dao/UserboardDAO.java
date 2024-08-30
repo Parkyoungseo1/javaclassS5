@@ -45,5 +45,12 @@ public interface UserboardDAO {
 	public int setUserboardReplyDelete(int idx);
 
 	public int setUserboardComplaintInput(int idx);
+
+	public int complaintTotRecCnt(@Param("part") String part);
+
+	public List<UserboardVO> getComplaintList();
+
+	public int getUserboardCount();
+
 	
 }

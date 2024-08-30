@@ -1,6 +1,6 @@
 show tables;
 
-create table member2 (
+create table member (
   idx       int not null auto_increment,/* 회원 고유번호 */
   mid       varchar(30) not null,				/* 회원 아이디(중복불허) */
   pwd       varchar(100) not null,			/* 회원 비밀번호(SHA256 암호화 처리) */
@@ -29,28 +29,28 @@ create table member2 (
   primary key (idx),
   unique(mid)
 );
-desc member2;
+desc member;
 
-insert into member2 values (default,'admin','1234','관리맨','관리자','남자',default,'010-1234-4567','050/서울시/그린아파트/100동/101호','abc@atom.com','http://wwww.atom.com','학생','등산',default,'관리자입니다.',default,default,default,default,default,default,default,default);
+insert into member values (default,'admin','1234','관리맨','관리자','남자',default,'010-1234-4567','050/서울시/그린아파트/100동/101호','abc@atom.com','http://wwww.atom.com','학생','등산',default,'관리자입니다.',default,default,default,default,default,default,default,default);
 
-select * from member2;
+select * from member;
 
 select lastDate, now(), timestampdiff(day, lastDate, now()) as deleteDiff from member2;
 
 /* 실시간 DB채팅 테이블 설계 */
-create table member2Chat (
+create table memberChat (
   idx   int  not null auto_increment primary key,
   nickName varchar(20) not null,
   chat  varchar(100) not null
 );
-desc member2Chat;
+desc memberChat;
 
-insert into member2Chat values (default,'admin','안녕1');
-insert into member2Chat values (default,'hkd1234','안녕2');
-insert into member2Chat values (default,'kms1234','안녕3');
-insert into member2Chat values (default,'admin','안녕4');
-insert into member2Chat values (default,'hkd1234','안녕5');
-insert into member2Chat values (default,'admin','안녕6');
+insert into memberChat values (default,'admin','안녕1');
+insert into memberChat values (default,'hkd1234','안녕2');
+insert into memberChat values (default,'kms1234','안녕3');
+insert into memberChat values (default,'admin','안녕4');
+insert into memberChat values (default,'hkd1234','안녕5');
+insert into memberChat values (default,'admin','안녕6');
 insert into member2Chat values (default,'kms1234','안녕7');
 insert into member2Chat values (default,'hkd1234','안녕8');
 insert into member2Chat values (default,'admin','안녕9');

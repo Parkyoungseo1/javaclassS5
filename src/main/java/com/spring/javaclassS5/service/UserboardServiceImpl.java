@@ -209,5 +209,16 @@ public class UserboardServiceImpl implements UserboardService {
 	public int setUserboardComplaintInput(int idx) {
 		return userboardDAO.setUserboardComplaintInput(idx);
 	}
+
+
+	@Override
+	public List<UserboardVO> getComplaintList() {
+		return userboardDAO.getComplaintList();
+	}
+
+	@Override
+	public int getUserboardCount() {
+		return userboardDAO.getUserboardCount();
+	}
 	
 }

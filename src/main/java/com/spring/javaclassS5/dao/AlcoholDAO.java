@@ -30,5 +30,8 @@ public interface AlcoholDAO {
 	public int totRecCntSearch(@Param("part") String part, @Param("searchString") String searchString);
 
 	public List<AlcoholVO> getAlcoholSearchList(@Param("startIndexNo") int startIndexNo, @Param("pageSize") int pageSize, @Param("search") String search, @Param("searchString") String searchString);
+
+	public int getAlcoholCount();		
 	
 }
+

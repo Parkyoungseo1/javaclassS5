@@ -25,6 +25,7 @@
     
     function slideCheck() {
     	let mainPrice = document.getElementById("price").value;
+    	alert(mainPrice);
     	location.href = "dbShopList?mainPrice="+mainPrice;
     }
 	</script>
@@ -39,15 +40,15 @@
 <div class="container">
   <span>[<a href="${ctp}/dbShop/dbShopList">전체보기</a>]</span> /
   <c:forEach var="subTitle" items="${subTitleVOS}" varStatus="st">
-  	<span>[<a href="${ctp}/dbShop/dbShopList?part=${subTitle.categorySubName}">${subTitle.categorySubName}</a>]</span>
+  	<span>[<a href="${ctp}/dbShop/dbShopList?part=${subTitle.categoryMainName}">${subTitle.categoryMainName}</a>]</span>
 	  <c:if test="${!st.last}"> / </c:if>
   </c:forEach>
   <hr/>
   <div>
-		<input type="range" min="0" max="3000000" step="300000" value="${price}" class="slider" id="price" onchange="slideCheck()" style="width:550px">
+		<input type="range" min="0" max="3000000" step="70000" name="price" id="price" value="${price}" class="slider" onchange="slideCheck()" style="width:550px">
 		<div class="row text-center ml-1" style="width:550px">
-		  <div class="col"><fmt:formatNumber value="300000" /></div>
-		  <div class="col"><fmt:formatNumber value="900000" /></div>
+		  <div class="col"><fmt:formatNumber value="280000" /></div>
+		  <div class="col"><fmt:formatNumber value="1000000" /></div>
 		  <div class="col"><fmt:formatNumber value="1500000" /></div>
 		  <div class="col"><fmt:formatNumber value="2100000" /></div>
 		  <div class="col"><fmt:formatNumber value="2700000" /></div>
@@ -82,7 +83,7 @@
       <c:if test="${cnt % 3 == 0}">
         </div>
         <div class="row mt-5">
-      </c:if>
+      </c:if>i
     </c:forEach>
     <div class="container">
       <c:if test="${fn:length(productVOS) == 0}"><h3>제품 준비 중입니다.</h3></c:if>

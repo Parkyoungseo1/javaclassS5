@@ -34,6 +34,10 @@
 	<select id="getAlcoholSearchList" resultType="com.spring.javaclassS5.vo.AlcoholVO">
 		select * from alcohol where ${search} like concat("%",#{searchString},"%") order by idx desc limit #{startIndexNo},#{pageSize};
 	</select>
+	
+	<select id="getAlcoholCount"  resultType="int">
+		select count(*) from alcohol;
+	</select>
 
 	
 	

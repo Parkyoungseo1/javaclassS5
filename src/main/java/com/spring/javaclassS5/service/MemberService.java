@@ -32,4 +32,8 @@ public interface MemberService {
 
 	public void setKakaoMemberInput(String mid, String pwd, String nickName, String email);
 
+	public int getNewMemberCnt();
+
+	public int getUserNoCnt();
+
 }

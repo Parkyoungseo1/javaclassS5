@@ -1,6 +1,7 @@
 package com.spring.javaclassS5.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -67,6 +68,18 @@ public class AdminServiceImpl implements AdminService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public int setUserComplaint(int idx) {
+		return adminDAO.setUserComplaint(idx);
+	}
+
+	@Override
+	public List<AdminVO> getComplaintList(int startIndexNo, int pageSize, String part) {
+		return adminDAO.getComplaintList(startIndexNo, pageSize, part);
+	}
+
+
 	
 	
 }

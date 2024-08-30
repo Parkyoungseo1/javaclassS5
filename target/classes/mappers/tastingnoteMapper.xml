@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.javaclassS5.dao.TastingNoteDAO">
+	<select id="getTastingNoteList" resultType="com.spring.javaclassS5.vo.TastingNoteVO">
+    select *,(select count(*) from tastingNoteReply where photoIdx = p.idx) as replyCnt from tastingNote p <if test='part !="전체"'> where part = #{part}</if> order by ${choice} desc limit #{startIndexNo},#{pageSize};
+	</select>
+	
+	<select id="getTastingNoteIdxSearch" resultType="com.spring.javaclassS5.vo.TastingNoteVO">
+	  <!-- select * from tastingNote where idx = #{idx}; -->
+	  select pg.*,(select count(*) from tastingNoteReply where photoIdx = #{idx}) as replyCnt from tastingNote pg where idx = #{idx};
+	</select>
+	
+	<select id="getTastingNoteReply" resultType="com.spring.javaclassS5.vo.TastingNoteVO">
+	  select *,idx as replyIdx from tastingNoteReply where photoIdx = #{idx} order by idx desc;
+	</select>
+	
+	<select id="getTastingNoteIdxList" resultType="int">
+	  select idx from tastingNote order by idx desc limit #{startIndexNo},#{pageSize};
+	</select>
+	
+	<select id="setTastingNoteSingle" resultType="com.spring.javaclassS5.vo.TastingNoteVO">
+	  select *,(select count(*) from tastingNoteReply where photoIdx = p.idx) as replyCnt from tastingNote p where idx = #{idx} order by idx desc;
+	</select>
+	
+	<select id="getTastingNoteCount"  resultType="int">
+		select count(*) from tastingNote;
+	</select>
+	
+	<insert id="tastingNoteInput">
+	  insert into tastingNote values (default,#{vo.mid},#{vo.part},#{vo.title},#{vo.content},#{vo.note},#{vo.thumbnail},#{vo.photoCount},#{vo.hostIp},default,default,default,default);
+	</insert>
+	
+	<insert id="setTastingNoteReplyInput">
+	  insert into tastingNoteReply values (default,#{vo.mid},#{vo.photoIdx},#{vo.content},default)
+	</insert>
+	
+	
+	<update id="setTastingNoteReadNumPlus">
+	  update tastingNote set readNum = readNum + 1 where idx = #{idx};
+	</update>
+	
+	<update id="setTastingNoteGoodPlus">
+	  update tastingNote set goodCount = goodCount + 1 where idx = #{idx};
+	</update>
+	
+	
+	<delete id="setTastingNoteReplyDelete">
+	  delete from tastingNoteReply where idx = #{idx};
+	</delete>
+	
+	<delete id="setTastingNoteDelete">
+	  delete from tastingNoteReply where photoIdx = #{idx};
+	  delete from tastingNote where idx = #{idx};
+	</delete>
+	
+</mapper>

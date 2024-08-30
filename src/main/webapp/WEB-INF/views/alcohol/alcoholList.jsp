@@ -96,7 +96,7 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/include/nav.jsp" />
-<div class="container">
+<div class="container" style="margin-left: 300px;">
   <h2>술 목록</h2>
   
   <div class="d-flex justify-content-between align-items-center mb-4">
@@ -145,7 +145,7 @@
     <form name="searchForm" method="post" action="alcoholSearch" class="form-inline justify-content-center">
       <select name="search" id="search" class="form-control mr-2">
         <option value="title">제목</option>
-        <option value="mid">작성자</option>
+        <option value="part">종류</option>
         <option value="content">내용</option>
       </select>
       <input type="text" name="searchString" id="searchString" required class="form-control mr-2" />

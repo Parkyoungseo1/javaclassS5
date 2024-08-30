@@ -230,65 +230,61 @@
     }
   </script>
   <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      background-color: #1a1a1a;
-      color: #ddd;
-      background-image: url('https://example.com/wood-texture.jpg');
-      background-blend-mode: overlay;
-    }
-    .container {
-      background-color: rgba(0, 0, 0, 0.7);
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 20px rgba(255, 165, 0, 0.2);
-    }
-    h2 {
-      color: #ffa500;
-      text-align: center;
-      text-shadow: 0 0 10px #ffa500;
-      font-size: 2.5em;
-      margin-bottom: 30px;
-    }
-    .form-group {
-      margin-bottom: 25px;
-      background-color: rgba(50, 50, 50, 0.5);
-      padding: 15px;
-      border-left: 4px solid #ffa500;
-    }
-    label {
-      color: #ffa500;
-      font-weight: bold;
-    }
-    .form-control, .custom-select {
-      background-color: #333;
-      border: 1px solid #ffa500;
-      color: #ddd;
-    }
-    .form-control:focus, .custom-select:focus {
-      background-color: #444;
-      border-color: #ffb52e;
-      box-shadow: 0 0 0 0.2rem rgba(255, 165, 0, 0.25);
-    }
-    .btn {
-      background-color: #ffa500;
-      border: none;
-      color: #1a1a1a;
-      font-weight: bold;
-    }
-    .btn:hover {
-      background-color: #ff8c00;
-      box-shadow: 0 0 10px #ffa500;
-    }
-    .input-group-text {
-      background-color: #ffa500;
-      color: #1a1a1a;
-      border: 1px solid #ffa500;
-    }
-    .form-check-label {
-      color: #ddd;
-    }
-  </style>
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+  }
+  .container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  }
+  h2 {
+    color: #4a4a4a;
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 30px;
+  }
+  .form-group {
+    margin-bottom: 25px;
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-left: 4px solid #3498db;
+  }
+  label {
+    color: #3498db;
+    font-weight: bold;
+  }
+  .form-control, .custom-select {
+    background-color: #ffffff;
+    border: 1px solid #ced4da;
+    color: #495057;
+  }
+  .form-control:focus, .custom-select:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+  }
+  .btn {
+    background-color: #3498db;
+    border: none;
+    color: #ffffff;
+    font-weight: bold;
+  }
+  .btn:hover {
+    background-color: #2980b9;
+    box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
+  }
+  .input-group-text {
+    background-color: #3498db;
+    color: #ffffff;
+    border: 1px solid #3498db;
+  }
+  .form-check-label {
+    color: #495057;
+  }
+</style>
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/include/nav.jsp" />

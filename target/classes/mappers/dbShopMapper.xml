@@ -10,65 +10,27 @@
     select * from categoryMain order by categoryMainCode desc;
   </select>
   
-  <select id="getCategoryMiddleOne" resultType="com.spring.javaclassS5.vo.DbProductVO">
-    select * from categoryMiddle 
-    where categoryMainCode=#{vo.categoryMainCode} and categoryMiddleCode=#{vo.categoryMiddleCode} and categoryMiddleName=#{vo.categoryMiddleName};
-  </select>
-  
-  <select id="getCategoryMiddle" resultType="com.spring.javaclassS5.vo.DbProductVO">
-    select middle.*, main.categoryMainName from categoryMiddle middle, categoryMain main
-    where middle.categoryMainCode=main.categoryMainCode
-    order by categoryMiddleCode desc;
-  </select>
-  
-  <select id="getCategorySubOne" resultType="com.spring.javaclassS5.vo.DbProductVO">
-    select * from categorySub where categoryMainCode = #{vo.categoryMainCode} and 
-    categoryMiddleCode = #{vo.categoryMiddleCode} and 
-    categorySubCode = #{vo.categorySubCode} and 
-    categorySubName = #{vo.categorySubName};
-  </select>
-  
-  <select id="getCategoryMiddleName" resultType="com.spring.javaclassS5.vo.DbProductVO">
-    select * from categoryMiddle where categoryMainCode = #{categoryMainCode};
-  </select>
-  
   <select id="getProductMaxIdx" resultType="com.spring.javaclassS5.vo.DbProductVO">
     select * from dbProduct order by idx desc limit 1;
-  </select>
-	
-  <select id="getCategorySub" resultType="com.spring.javaclassS5.vo.DbProductVO">
-    select sub.*, main.categoryMainCode, main.categoryMainName, middle.categoryMiddleCode, middle.categoryMiddleName from categorySub sub, categoryMiddle middle, categoryMain main
-    where sub.categoryMainCode=main.categoryMainCode and sub.categoryMiddleCode=middle.categoryMiddleCode
-    order by categorySubCode desc;
-  </select>
-  
-  <select id="getCategorySubName" resultType="com.spring.javaclassS5.vo.DbProductVO">
-    select * from categorySub where categoryMainCode = #{categoryMainCode} and categoryMiddleCode = #{categoryMiddleCode}; 
   </select>
   
   <select id="getCategoryProductName" resultType="com.spring.javaclassS5.vo.DbProductVO">
     select * from dbProduct 
-    where categoryMainCode = #{vo.categoryMainCode} and categoryMiddleCode = #{vo.categoryMiddleCode} and categorySubCode = #{vo.categorySubCode}; 
+    where categoryMainCode = #{vo.categoryMainCode}; 
   </select>
   
   <select id="getCategoryProductNameOne" resultType="com.spring.javaclassS5.vo.DbProductVO">
     select * from dbProduct where productName = #{productName}; 
-    <!-- select *,(select categoryMainName from categoryMain where categoryMainCode=#{vo.categoryMainCode}) as categoryMainName,
-      (select categoryMiddleName from categoryMiddle where categoryMiddleCode=#{vo.categoryMiddleCode}) as categoryMiddleName,
-      (select categorySubName from categorySub where categorySubCode=#{vo.categorySubCode}) as categorySubName
-      from dbProduct where productName = #{vo.productName}; --> 
   </select>
   
   <select id="getCategoryProductNameOneVO" resultType="com.spring.javaclassS5.vo.DbProductVO">
     <!-- select * from dbProduct where productName = #{productName}; --> 
-    select *,(select categoryMainName from categoryMain where categoryMainCode=#{vo.categoryMainCode}) as categoryMainName,
-      (select categoryMiddleName from categoryMiddle where categoryMiddleCode=#{vo.categoryMiddleCode}) as categoryMiddleName,
-      (select categorySubName from categorySub where categorySubCode=#{vo.categorySubCode}) as categorySubName
-      from dbProduct where productName = #{vo.productName}; 
+    select *,(select categoryMainName from categoryMain where categoryMainCode=#{vo.categoryMainCode}) as categoryMainName
+     from dbProduct where productName = #{vo.productName}; 
   </select>
   
   <select id="getSubTitle" resultType="com.spring.javaclassS5.vo.DbProductVO">
-  	select categorySubName from categorySub group by categorySubName order by categorySubName;
+  	select categoryMainName from categoryMain group by categoryMainName order by categoryMainName;
   </select>
   
 	<select id="getDbShopList" resultType="com.spring.javaclassS5.vo.DbProductVO">
@@ -76,8 +38,8 @@
 	    select * from dbProduct <if test='mainPrice != 0'>where <![CDATA[mainPrice < #{mainPrice}]]></if> order by idx desc;
 	 	</if>
 	  <if test='part != "전체"'>     <!-- A01003 -->
-	 		select product.*, sub.categorySubName from dbProduct product, categorySub sub 
-	 		  where sub.categorySubName = #{part} and substring(product.productCode,4,3)=sub.categorySubCode <if test='mainPrice != 0'>and <![CDATA[mainPrice < #{mainPrice}]]></if> order by idx desc;
+	 		select product.*, sub.categoryMainName from dbProduct product, categoryMainName sub 
+	 		  where sub.categoryMainName = #{part} <if test='mainPrice != 0'>and <![CDATA[mainPrice < #{mainPrice}]]></if> order by idx desc;
 	 	</if>
 	</select>
 	
@@ -90,13 +52,11 @@
   </select>
   
   <select id="getCategoryProductNameAjax" resultType="com.spring.javaclassS5.vo.DbProductVO">
-  	select * from dbProduct
-  	where categoryMainCode=#{categoryMainCode} and categoryMiddleCode=#{categoryMiddleCode} and categorySubCode=#{categorySubCode};
+  	select * from dbProduct where categoryMainCode=#{categoryMainCode};
   </select>
   
   <select id="getProductInfor" resultType="com.spring.javaclassS5.vo.DbProductVO">
-  	select product.*, main.categoryMainName, middle.categoryMiddleName, sub.categorySubName
-  	from dbProduct product, categoryMain main, categoryMiddle middle, categorySub sub
+  	select product.*, categoryMainName from dbProduct product, categoryMain main
   	where productName=#{productName} order by idx limit 1;
   </select>
   
@@ -138,16 +98,8 @@
     insert into categoryMain values (#{vo.categoryMainCode},#{vo.categoryMainName});
   </insert>
   
-   <insert id="setCategoryMiddleInput">
-    insert into categoryMiddle values (#{vo.categoryMainCode},#{vo.categoryMiddleCode},#{vo.categoryMiddleName});
-  </insert>
-  
-  <insert id="setCategorySubInput">
-    insert into categorySub values (#{vo.categoryMainCode},#{vo.categoryMiddleCode},#{vo.categorySubCode},#{vo.categorySubName});
-  </insert>
-  
   <insert id="setDbProductInput">
-    insert into dbProduct value (#{vo.idx},#{vo.categoryMainCode},#{vo.categoryMiddleCode},#{vo.categorySubCode},#{vo.productCode},#{vo.productName},#{vo.detail},#{vo.mainPrice},#{vo.fSName},#{vo.content});
+    insert into dbProduct value (#{vo.idx},#{vo.categoryMainCode},#{vo.productCode},#{vo.productName},#{vo.detail},#{vo.mainPrice},#{vo.fSName},#{vo.content});
   </insert>
   
   <insert id="setDbOptionInput">
@@ -166,15 +118,12 @@
     insert into dbBaesong values (default,#{baesongVO.oIdx},#{baesongVO.orderIdx},#{baesongVO.orderTotalPrice},#{baesongVO.mid},#{baesongVO.name},#{baesongVO.address},#{baesongVO.tel},#{baesongVO.message},#{baesongVO.payment},#{baesongVO.payMethod},default);
   </insert>
   
-  
-  
-  
   <update id="dbShopCartUpdate">
     update dbCart set optionNum=#{vo.optionNum},totalPrice=totalPrice+#{vo.totalPrice} where productName=#{vo.productName} and optionName=#{vo.optionName};
   </update>
   
   <update id="setMemberPointPlus">
-    update member2 set point = point + #{point} where mid = #{mid};
+    update member set point = point + #{point} where mid = #{mid};
   </update>
   
 

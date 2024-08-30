@@ -54,7 +54,7 @@
         <div class="card-body text-center">
           <i class="fas fa-exclamation-triangle card-icon"></i>
           <h5 class="card-title">신고글</h5>
-          <p class="card-text display-4">???</p>
+          <p class="card-text display-4">1건</p>
           <p class="card-text"><small>최근 1주일</small></p>
         </div>
       </div>
@@ -67,7 +67,7 @@
         <div class="card-body text-center">
           <i class="fas fa-user-plus card-icon"></i>
           <h5 class="card-title">신규등록회원</h5>
-          <p class="card-text display-4"><a href="MemberList.ad?level=1" class="text-white"><b>${mCount}</b></a></p>
+          <p class="card-text display-4"><a href="MemberList?level=1" class="text-white"><b>${newMemberCnt}건</b></a></p>
           <p class="card-text"><small>클릭하여 자세히 보기</small></p>
         </div>
       </div>
@@ -77,7 +77,7 @@
         <div class="card-body text-center">
           <i class="fas fa-user-minus card-icon"></i>
           <h5 class="card-title">탈퇴신청회원</h5>
-          <p class="card-text display-4"><a href="" class="text-white"><b>${m99Count}</b></a></p>
+          <p class="card-text display-4"><a href="MemberList?level=999" class="text-white"><b>1건</b></a></p>
           <p class="card-text"><small>클릭하여 자세히 보기</small></p>
         </div>
       </div>

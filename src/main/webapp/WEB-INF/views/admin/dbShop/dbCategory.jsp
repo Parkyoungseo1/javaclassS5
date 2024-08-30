@@ -91,8 +91,7 @@
     			categoryMainName : categoryMainName
     		},
     		success:function(res) {
-    			if(res == "0") alert("같은 상품이 등록되어 있습니다.\n확인하시고 다시 입력하세요");
-    			else {
+    			if(res != "0") {
     				alert("대분류가 등록되었습니다.");
     				location.reload();
     			}
@@ -124,143 +123,6 @@
     		}
     	});
     }
-    
-    // 중분류 등록하기
-    function categoryMiddleCheck() {
-    	let categoryMainCode = categoryMiddleForm.categoryMainCode.value;
-    	let categoryMiddleCode = categoryMiddleForm.categoryMiddleCode.value;
-    	let categoryMiddleName = categoryMiddleForm.categoryMiddleName.value;
-    	if(categoryMainCode.trim() == "" || categoryMiddleCode.trim() == "" || categoryMiddleName.trim() == "") {
-    		alert("대분류명(코드)를 입력하세요");
-    		categoryMiddleForm.categoryMiddleName.focus();
-    		return false;
-    	}
-    	$.ajax({
-    		type : "post",
-    		url  : "${ctp}/dbShop/categoryMiddleInput",
-    		data : {
-    			categoryMainCode : categoryMainCode,
-    			categoryMiddleCode : categoryMiddleCode,
-    			categoryMiddleName : categoryMiddleName
-    		},
-    		success:function(res) {
-    			if(res == "0") alert("같은 상품이 등록되어 있습니다.\n확인하시고 다시 입력하세요");
-    			else {
-    				alert("중분류가 등록되었습니다.");
-    				location.reload();
-    			}
-    		},
-  			error: function() {
-  				alert("전송오류!");
-  			}
-    	});
-    }
-    
-    // 중분류 삭제
-    function categoryMiddleDelete(categoryMiddleCode) {
-    	let ans = confirm("중분류항목을 삭제하시겠습니까?");
-    	if(!ans) return false;
-    	
-    	$.ajax({
-    		type : "post",
-    		url  : "${ctp}/dbShop/categoryMiddleDelete",
-    		data : {categoryMiddleCode : categoryMiddleCode},
-    		success:function(res) {
-    			if(res == "0") {
-    				alert("하위항목이 있기에 삭제할수 없습니다.\n하위항목을 먼저 삭제해 주세요.");
-    			}
-    			else {
-    				alert("중분류 항목이 삭제 되었습니다.");
-    				location.reload();
-    			}
-    		},
-    		error : function() {
-    			alert("전송오류!");
-    		}
-    	});
-    }
-    
-    // 소분류 입력창에서 대분류 선택시에 중분류 자동 조회하기
-    function categoryMainChange() {
-    	let categoryMainCode = categorySubForm.categoryMainCode.value;
-    	$.ajax({
-    		type : "post",
-    		url  : "${ctp}/dbShop/categoryMiddleName",
-    		data : {categoryMainCode : categoryMainCode},
-    		success:function(vos) {
-    			let str = '';
-    			str += '<option value="">중분류선택</option>'
-    			for(let i=0; i<vos.length; i++) {
-    				str += '<option value="'+vos[i].categoryMiddleCode+'">'+vos[i].categoryMiddleName+'</option>';
-    			}
-    			$("#categoryMiddleCode").html(str);
-    		},
-    		error : function() {
-    			alert("전송오류!");
-    		}
-    	});
-    }
-    
-    // 소분류 등록하기
-    function categorySubCheck() {
-    	let categoryMainCode = categorySubForm.categoryMainCode.value;
-    	let categoryMiddleCode = categorySubForm.categoryMiddleCode.value;
-    	let categorySubCode = categorySubForm.categorySubCode.value;
-    	let categorySubName = categorySubForm.categorySubName.value;
-    	if(categoryMainCode.trim() == "" || categoryMiddleCode.trim() == "" || categorySubCode.trim() == "" || categorySubName.trim() == "") {
-    		alert("소분류명(코드)를 입력하세요");
-    		categorySubForm.categorySubName.focus();
-    		return false;
-    	}
-    	$.ajax({
-    		type : "post",
-    		url  : "${ctp}/dbShop/categorySubInput",
-    		data : {
-    			categoryMainCode : categoryMainCode,
-    			categoryMiddleCode : categoryMiddleCode,
-    			categorySubCode : categorySubCode,
-    			categorySubName : categorySubName
-    		},
-    		success:function(res) {
-    			if(res == "0") alert("같은 상품이 등록되어 있습니다.\n확인하시고 다시 입력하세요");
-    			else {
-    				alert("소분류가 등록되었습니다.");
-    				location.reload();
-    			}
-    		},
-  			error: function() {
-  				alert("전송오류!");
-  			}
-    	});
-    }
-    
-    // 소분류 삭제하기
-    function categorySubDelete(categoryMainCode, categoryMiddleCode, categorySubCode) {
-    	let ans = confirm("소분류항목을 삭제하시겠습니까?");
-    	if(!ans) return false;
-    	
-    	$.ajax({
-    		type : "post",
-    		url  : "${ctp}/dbShop/categorySubDelete",
-    		data : {
-    			categoryMainCode : categoryMainCode,
-    			categoryMiddleCode : categoryMiddleCode,
-    			categorySubCode : categorySubCode
-    		},
-    		success:function(res) {
-    			if(res == "0") {
-    				alert("하위항목이 있기에 삭제할수 없습니다.\n하위항목을 먼저 삭제해 주세요.");
-    			}
-    			else {
-    				alert("소분류 항목이 삭제 되었습니다.");
-    				location.reload();
-    			}
-    		},
-    		error : function() {
-    			alert("전송오류!");
-    		}
-    	});
-    }
   	// 추가: 애니메이션 효과
     $(document).ready(function() {
       $('.category-card').each(function(i) {
@@ -275,16 +137,16 @@
   
   <div class="category-card" style="opacity: 0;">
     <form name="categoryMainForm">
-      <h4 class="category-title"><i class="fas fa-layer-group mr-2"></i>대분류(제조사) 관리</h4>
+      <h4 class="category-title"><i class="fas fa-layer-group mr-2"></i>술 종류 관리</h4>
       <div class="form-row align-items-center">
         <div class="col-sm-3 my-1">
-          <input type="text" class="form-control" name="categoryMainCode" maxlength="1" placeholder="대분류 코드">
+          <input type="text" class="form-control" name="categoryMainCode" placeholder="알코올">
         </div>
         <div class="col-sm-6 my-1">
-          <input type="text" class="form-control" name="categoryMainName" placeholder="대분류명">
+          <input type="text" class="form-control" name="categoryMainName" placeholder="종류">
         </div>
         <div class="col-auto my-1">
-          <button type="button" class="btn btn-category" onclick="categoryMainCheck()">대분류 등록</button>
+          <button type="button" class="btn btn-category" onclick="categoryMainCheck()">술 등록</button>
         </div>
       </div>
       <div class="table-responsive mt-3">
@@ -292,7 +154,7 @@
           <thead>
             <tr>
               <th>코드</th>
-              <th>대분류명</th>
+              <th>종류</th>
               <th>관리</th>
             </tr>
           </thead>
@@ -303,115 +165,6 @@
                 <td>${mainVO.categoryMainName}</td>
                 <td>
                   <button type="button" class="btn btn-delete btn-sm" onclick="categoryMainDelete('${mainVO.categoryMainCode}')">
-                    <i class="fas fa-trash-alt mr-1"></i>삭제
-                  </button>
-                </td>
-              </tr>
-            </c:forEach>
-          </tbody>
-        </table>
-      </div>
-    </form>
-  </div>
-  
-  <div class="category-card" style="opacity: 0;">
-    <form name="categoryMiddleForm">
-      <h4 class="category-title"><i class="fas fa-sitemap mr-2"></i>중분류(상품분류) 관리</h4>
-      <div class="form-row align-items-center">
-        <div class="col-sm-3 my-1">
-          <select name="categoryMainCode" class="form-control">
-            <option value="">대분류 선택</option>
-            <c:forEach var="mainVO" items="${mainVOS}">
-              <option value="${mainVO.categoryMainCode}">${mainVO.categoryMainName}</option>
-            </c:forEach>
-          </select>
-        </div>
-        <div class="col-sm-2 my-1">
-          <input type="text" class="form-control" name="categoryMiddleCode" maxlength="2" placeholder="중분류 코드">
-        </div>
-        <div class="col-sm-4 my-1">
-          <input type="text" class="form-control" name="categoryMiddleName" placeholder="중분류명">
-        </div>
-        <div class="col-auto my-1">
-          <button type="button" class="btn btn-category" onclick="categoryMiddleCheck()">중분류 등록</button>
-        </div>
-      </div>
-      <div class="table-responsive mt-3">
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th>코드</th>
-              <th>중분류명</th>
-              <th>대분류명</th>
-              <th>관리</th>
-            </tr>
-          </thead>
-          <tbody>
-            <c:forEach var="middleVO" items="${middleVOS}">
-              <tr>
-                <td>${middleVO.categoryMiddleCode}</td>
-                <td>${middleVO.categoryMiddleName}</td>
-                <td>${middleVO.categoryMainName}</td>
-                <td>
-                  <button type="button" class="btn btn-delete btn-sm" onclick="categoryMiddleDelete('${middleVO.categoryMiddleCode}')">
-                    <i class="fas fa-trash-alt mr-1"></i>삭제
-                  </button>
-                </td>
-              </tr>
-            </c:forEach>
-          </tbody>
-        </table>
-      </div>
-    </form>
-  </div>
-  
-  <div class="category-card" style="opacity: 0;">
-    <form name="categorySubForm">
-      <h4 class="category-title"><i class="fas fa-list mr-2"></i>소분류(상품군) 관리</h4>
-      <div class="form-row align-items-center">
-        <div class="col-sm-3 my-1">
-          <select name="categoryMainCode" class="form-control" onchange="categoryMainChange()">
-            <option value="">대분류 선택</option>
-            <c:forEach var="mainVO" items="${mainVOS}">
-              <option value="${mainVO.categoryMainCode}">${mainVO.categoryMainName}</option>
-            </c:forEach>
-          </select>
-        </div>
-        <div class="col-sm-3 my-1">
-          <select name="categoryMiddleCode" id="categoryMiddleCode" class="form-control">
-            <option value="">중분류 선택</option>
-          </select>
-        </div>
-        <div class="col-sm-2 my-1">
-          <input type="text" class="form-control" name="categorySubCode" maxlength="3" placeholder="소분류 코드">
-        </div>
-        <div class="col-sm-2 my-1">
-          <input type="text" class="form-control" name="categorySubName" placeholder="소분류명">
-        </div>
-        <div class="col-auto my-1">
-          <button type="button" class="btn btn-category" onclick="categorySubCheck()">소분류 등록</button>
-        </div>
-      </div>
-      <div class="table-responsive mt-3">
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th>코드</th>
-              <th>소분류명</th>
-              <th>중분류명</th>
-              <th>대분류명</th>
-              <th>관리</th>
-            </tr>
-          </thead>
-          <tbody>
-            <c:forEach var="subVO" items="${subVOS}">
-              <tr>
-                <td>${subVO.categorySubCode}</td>
-                <td>${subVO.categorySubName}</td>
-                <td>${subVO.categoryMiddleName}</td>
-                <td>${subVO.categoryMainName}</td>
-                <td>
-                  <button type="button" class="btn btn-delete btn-sm" onclick="categorySubDelete('${subVO.categoryMainCode}','${subVO.categoryMiddleCode}','${subVO.categorySubCode}')">
                     <i class="fas fa-trash-alt mr-1"></i>삭제
                   </button>
                 </td>

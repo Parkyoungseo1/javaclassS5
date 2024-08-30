@@ -1,6 +1,7 @@
 package com.spring.javaclassS5.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,10 +14,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.javaclassS5.common.JavaclassProvide;
+import com.spring.javaclassS5.pagination.PageProcess;
 import com.spring.javaclassS5.service.AdminService;
 import com.spring.javaclassS5.service.MemberService;
+import com.spring.javaclassS5.service.UserboardService;
+import com.spring.javaclassS5.vo.AdminVO;
 import com.spring.javaclassS5.vo.AlcoholVO;
 import com.spring.javaclassS5.vo.MemberVO;
+import com.spring.javaclassS5.vo.PageVO;
+import com.spring.javaclassS5.vo.UserboardVO;
 
 @Controller
 @RequestMapping("/admin")
@@ -26,10 +32,16 @@ public class AdminController {
 	AdminService adminService;
 	
 	@Autowired
+	UserboardService userboardservice;
+	
+	@Autowired
 	MemberService memberService;
 		
 	@Autowired
 	JavaclassProvide javaclassProvide;
+	
+	@Autowired
+	PageProcess pageProcess;
 	
 	@RequestMapping(value = "/adminMain", method = RequestMethod.GET)
 	public String adminMainGet() {
@@ -42,7 +54,15 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/adminContent", method = RequestMethod.GET)
-	public String adminContentGet() {
+	public String adminContentGet(Model model) {
+		
+		int newMemberCnt = memberService.getNewMemberCnt();
+		
+		int userNoCnt = memberService.getUserNoCnt();
+		
+		model.addAttribute("newMemberCnt", newMemberCnt);
+		model.addAttribute("userNoCnt", userNoCnt);
+		
 		return "admin/adminContent";
 	}
 	
@@ -71,6 +91,7 @@ public class AdminController {
 		model.addAttribute("blockSize", blockSize);
 		model.addAttribute("curBlock", curBlock);
 		model.addAttribute("lastBlock", lastBlock);
+		
 		
 		return "admin/member/memberList";
 	}
@@ -127,6 +148,22 @@ public class AdminController {
 		model.addAttribute("lastBlock", lastBlock);
 		
 		return "admin/alcohol/alcoholList";
+	}
+	
+	@RequestMapping(value = "/complaint/complaintList", method = RequestMethod.GET)
+	public String complaintListGet(Model model,
+			@RequestParam(name="pag", defaultValue = "1", required = false) int pag,
+			@RequestParam(name="pageeSize", defaultValue = "10", required = false) int pageSize,
+			@RequestParam(name="part", defaultValue = "전체", required = false) String part) {
+		PageVO pagevo = pageProcess.totRecCnt(pag, pageSize, "complaint", part, "");
+		//List<UserboardVO> vos1 = userboardservice.getComplaintList();
+		List<AdminVO> vos = adminService.getComplaintList(pagevo.getStartIndexNo(), pageSize, part);
+		//System.out.println("vos1 : " + vos1);
+		model.addAttribute("part", part);
+		model.addAttribute("vos", vos);
+		model.addAttribute("pagevo", pagevo);
+		
+		return "admin/complaint/complaintList";
 	}
 	
 }

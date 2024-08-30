@@ -14,7 +14,7 @@
     
     function pageSizeCheck() {
     	let pageSize = $("#pageSize").val();
-    	location.href = "AlcoholSearchList.bo?search=${search}&searchString=${searchString}&pageSize="+pageSize;
+    	location.href = "AlcoholSearchList?search=${search}&searchString=${searchString}&pageSize="+pageSize;
     }
   </script>
 </head>
@@ -30,7 +30,7 @@
       </td>
     </tr>
     <tr>
-      <td><c:if test="${sLevel != 1}"><a href="AlcoholInput.bo" class="btn btn-success btn-sm">글쓰기</a></c:if></td>
+      <td><c:if test="${sLevel != 1}"><a href="AlcoholInput" class="btn btn-success btn-sm">글쓰기</a></c:if></td>
       <td class="text-right">
         <select name="pageSize" id="pageSize" onchange="pageSizeCheck()">
           <option ${pageSize==5  ? "selected" : ""}>5</option>
@@ -98,21 +98,19 @@
 	</div>
 	<!-- 블록페이지 끝 -->
 	<br/>
-	<!-- 검색기 시작 -->
-	<!-- 
+	<!-- 검색기 시작 --> 
 	<div class="container text-center">
-	  <form name="searchForm" method="post" action="AlcoholSearch.bo">
+	  <form name="searchForm" method="post" action="AlcoholSearch">
 	    <b>검색 : </b>
 	    <select name="search" id="search">
 	      <option value="title">글제목</option>
-	      <option value="nickName">글쓴이</option>
+	      <option value="part">종류</option>
 	      <option value="content">글내용</option>
 	    </select>
 	    <input type="text" name="searchString" id="searchString" required />
 	    <input type="submit" value="검색" class="btn btn-secondary btn-sm"/>
 	  </form>
 	</div>
-	 -->
 	<!-- 검색기 끝 -->
 	<input type="button" value="돌아가기" onclick="location.href='AlcoholList?pag=${pageVO.pag}&pageSize=${pageVO.pageSize}';" class="btn btn-warning"/>
 </div>

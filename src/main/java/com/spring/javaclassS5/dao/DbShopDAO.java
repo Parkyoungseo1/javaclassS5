@@ -48,8 +48,6 @@ public interface DbShopDAO {
 
 	public List<DbProductVO> getDbShopList(@Param("part") String part, @Param("mainPrice") String mainPrice);
 
-	public List<DbProductVO> getCategorySubName(@Param("categoryMainCode") String categoryMainCode, @Param("categoryMiddleCode") String categoryMiddleCode);
-
 	public DbProductVO getDbShopProduct(@Param("idx") int idx);
 
 	public List<DbOptionVO> getDbShopOption(@Param("idx") int idx);
@@ -58,7 +56,7 @@ public interface DbShopDAO {
 
 	public List<DbOptionVO> getOptionList(@Param("productIdx") int productIdx);
 
-	public List<DbProductVO> getCategoryProductNameAjax(@Param("categoryMainCode") String categoryMainCode, @Param("categoryMiddleCode") String categoryMiddleCode,	@Param("categorySubCode") String categorySubCode);
+	public List<DbProductVO> getCategoryProductNameAjax(@Param("categoryMainCode") String categoryMainCode);
 
 	public int getOptionSame(@Param("productIdx") int productIdx, @Param("optionName") String optionName);
 

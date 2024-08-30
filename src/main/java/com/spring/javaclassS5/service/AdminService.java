@@ -1,6 +1,7 @@
 package com.spring.javaclassS5.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.spring.javaclassS5.vo.AdminVO;
 import com.spring.javaclassS5.vo.AlcoholVO;
@@ -25,5 +26,11 @@ public interface AdminService {
 	public ArrayList<AlcoholVO> getAlcoholList(int startIndexNo, int pageSize, int level);
 
 	public int setflavorComplaintInput(AdminVO vo);
+
+	public int setUserComplaint(int idx);
+
+	public List<AdminVO> getComplaintList(int startIndexNo, int pageSize, String part);
+
+
 
 }

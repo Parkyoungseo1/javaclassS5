@@ -250,7 +250,8 @@ public class UserboardController {
 	@ResponseBody
 	@RequestMapping(value = "/userboardComplaintInput", method = RequestMethod.POST)
 	public String userboardComplaintInputPost(AdminVO vo) {
-		int res = adminService.setUserboardComplaintInput(vo);	    
+		int res = adminService.setUserboardComplaintInput(vo);	
+		adminService.setUserComplaint(vo.getPartIdx());
 		return res + "";
 	}
 }

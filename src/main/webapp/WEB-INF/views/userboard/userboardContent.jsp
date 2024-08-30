@@ -324,7 +324,7 @@
     </div>
     <div>
       <c:if test="${sNickName == vo.nickName || sLevel == 0}">
-        <c:if test="${report == 'OK'}"><span class="text-danger font-weight-bold mr-2">현재 이글은 신고중입니다.</span></c:if>
+        <c:if test="${complaint == 'OK'}"><span class="text-danger font-weight-bold mr-2">현재 이글은 신고중입니다.</span></c:if>
         <button onclick="location.href='userboardUpdate?idx=${vo.idx}&pag=${pag}&pageSize=${pageSize}';" class="btn btn-primary mr-2">수정</button>
         <button onclick="userboardDelete()" class="btn btn-danger">삭제</button>
       </c:if>
@@ -333,7 +333,7 @@
         <c:if test="${report != 'OK'}"><button data-toggle="modal" data-target="#myModal" class="btn btn-danger">신고하기</button></c:if>
       </c:if>
     </div>
-  </div>
+   </div>
 </div>
 
 <div class="container comment-section">
